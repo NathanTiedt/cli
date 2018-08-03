@@ -52,6 +52,10 @@ function removeOldIps () {
   echo "# config file for aws ip addresses" > ~/.ssh/config
 }
 
+
+####################
+##  MAIN CONTROL  ##
+####################
 echo "Removing old ips"
 removeOldIps
 echo "Seeding new Ips"
