@@ -16,7 +16,6 @@ function parseSshConfig () {
 touch ~/.ssh/config # makes sure config file exists
 cat ~/.ssh/config > ./temp # outputs to temp file
 while test $# -gt 0; do
-  echo $1
   parseSshConfig $1
   shift
 done  # loops though greping for each arg passed in
