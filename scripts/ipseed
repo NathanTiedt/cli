@@ -3,23 +3,17 @@
 # queries for data
 sshQuery=Reservations[*].Instances[*].[PrivateIpAddress]
 
-# filters for environments
-#devFilter=Name=tag:Env,Values=development
-#prodFilter=Name=tag:Env,Values=production
-#stageFilter=Name=tag:Env,Values=staging
-
-#filters for specific tier
-#riskApiFilter=Name=tag:Tier,Values=RZRiskAPI
-#appFilter=Name=tag:Tier,Values=App
-#geoserverFilter=Name=tag:Tier,Values=Geoserver
-#webFilter=Name=tag:Tier,Values=Web
-#talusFilter=Name=tag:Tier,Values=Talus
-
-declare -a envNames=("dev" "stage" "prod")
+# Set of arrays for environments and instances
+# each pair of arrays has to line up index wise!
+declare -a envNames=("dev" "stage" "prod") # indexes need to match with $envs[]
 declare -a envs=("Name=tag:Env,Values=development" "Name=tag:Env,Values=staging" "Name=tag:Env,Values=production")
-declare -a instances=("app" "geo" "web" "risk")
+declare -a instances=("app" "geo" "web" "risk") # indexes needs to match with $filters[]
 declare -a filters=("Name=tag:Tier,Values=App" "Name=tag:Tier,Values=Geoserver" "Name=tag:Tier,Values=Web" "Name=tag:Tier,Values=RZRiskAPI")
 
+##
+# runs through each instance type from $instances[]
+# and grabs the ips. inserts those ips into ~/.ssh/config file
+##
 function seedEnv () {
   length=${#instances[@]}
   for (( i=0; i<${length}; i++ )); do
@@ -35,30 +29,66 @@ function seedEnv () {
 #      echo "$addr"
       echo "Host $2.${instances[$i]}$lc" >> ~/.ssh/config
       echo "    HostName $addr" >> ~/.ssh/config
+      if [[ -f ./ssh_user.bak ]]; then
+        cat ./ssh_user.bak >> ~/.ssh/config
+      fi
       lc=$((lc-1))
     done < ~/.ssh/tmp.txt
+    rm -rf ~/.ssh/tmp.txt
   done
 }
 
+##
+# executes a set of seeds for each environment
+##
 function seedIps () {
   envLength=${#envs[@]}
   for (( e=0; e<${envLength}; e++ )); do
+    echo "Seeding For ${envNames[$e]} Environment"
     seedEnv ${envs[$e]} ${envNames[$e]}
   done
 }
 
+##
+# adds file to set default user for ssh login
+##
+function setUser () {
+  touch ./ssh_user.bak
+  echo "    User $1" > ./ssh_user.bak
+}
+
+##
+# removes the old ips from the config file
+##
 function removeOldIps () {
   touch ~/.ssh/config
   echo "# config file for aws ip addresses" > ~/.ssh/config
+}
+
+##
+# first removes then seeds ips
+##
+function runSeed () {
+  echo "Removing Old Ips"
+  removeOldIps
+  seedIps
+  echo "Done Seeding Ips"
 }
 
 
 ####################
 ##  MAIN CONTROL  ##
 ####################
-echo "Removing old ips"
-removeOldIps
-echo "Seeding new Ips"
-seedIps
-echo "Done Seeding Ips"
+case "$1" in
+  --user|-u)
+    if [[ $# -gt 1 ]]; then
+      setUser $2
+    else
+      echo "Not enough arguments passed in!"
+    fi
+    ;;
+  *)
+    runSeed
+    ;;
+esac
 

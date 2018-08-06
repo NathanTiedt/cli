@@ -5,8 +5,8 @@
 # TODO: also install aws cli tools
 ##
 
-ln -sf $(pwd)/ipseed /usr/local/bin/ipseed
-ln -sf $(pwd)/aws_session /usr/local/bin/aws_session
-ln -sf $(pwd)/ip /usr/local/bin/ip
+ln -sf $(pwd)/scripts/ipseed /usr/local/bin/ipseed
+ln -sf $(pwd)/scripts/aws_session /usr/local/bin/aws_session
+ln -sf $(pwd)/scripts/ip /usr/local/bin/ip
 
 
