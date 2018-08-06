@@ -1,0 +1,22 @@
+#!/usr/bin/env node
+
+const { git } = require('./js');
+const program = require('commander');
+
+program
+  .option('s, start <name>', 'creates a new release branch')
+  .option('e, end <name>', 'ends a release branch')
+  .option('delete <name>', 'deletes a branch')
+  .parse(process.argv);
+
+if (program.hasOwnProperty('start')) {
+  start();
+}
+
+function start () {
+  git.checkout('develop');
+  git.pull();
+  git.checkout(`release/${program.start}`, '-b');
+  git.publish(`release/${program.start}`);
+}
+

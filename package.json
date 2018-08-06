@@ -1,0 +1,31 @@
+{
+  "name": "rz_cli",
+  "version": "0.1.0",
+  "description": "set of command line tools for Redzone",
+  "main": "src/index.js",
+  "bin": {
+    "bit": "./src/bit/bit",
+    "ip": "./scripts/ip",
+    "session": "./scripts/aws_session",
+    "ipseed": "./scripts/ipseed"
+  },
+  "scripts": {
+    "setup": "npm link",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/redzoneco/rz_cli.git"
+  },
+  "keywords": [
+    "cli"
+  ],
+  "author": "Nate Tiedt",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/redzoneco/rz_cli#readme",
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "commander": "^2.17.0",
+    "shelljs": "^0.8.2"
+  }
+}

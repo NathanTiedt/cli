@@ -1,0 +1,21 @@
+#!/usr/bin/env node
+
+const { git } = require('./js');
+const program = require('commander');
+
+program
+  .option('s, start <name>', 'creates a new feature branch')
+  .option('e, end <name>', 'ends a feaure branch')
+  .option('delete <name>', 'deletes a branch')
+  .parse(process.argv);
+
+if (program.hasOwnProperty('start')) {
+  start();
+}
+
+function start () {
+  git.checkout('develop');
+  git.pull();
+  git.checkout(`feature/${program.start}`, '-b');
+  git.publish(`feature/${program.start}`);
+}
