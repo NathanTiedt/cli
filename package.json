@@ -10,7 +10,7 @@
     "ipseed": "./scripts/ipseed"
   },
   "scripts": {
-    "setup": "npm link",
+    "setup": "./scripts/setup.sh; npm link",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -26,6 +26,7 @@
   "dependencies": {
     "chalk": "^2.4.1",
     "commander": "^2.17.0",
-    "shelljs": "^0.8.2"
+    "shelljs": "^0.8.2",
+    "superagent": "^3.8.3"
   }
 }

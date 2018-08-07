@@ -8,5 +8,6 @@ program
   .command('feature', 'handle features').alias('f')
   .command('release', 'release stuff').alias('r')
   .command('hotfix', 'hotfix stuff').alias('h')
+  .command('setup', 'setup stuff')
   .parse(process.argv);
 

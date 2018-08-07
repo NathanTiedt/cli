@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const { git } = require('./js');
+const { git, cloud } = require('./js');
 const program = require('commander');
 
 program
@@ -11,6 +11,8 @@ program
 
 if (program.hasOwnProperty('start')) {
   start();
+} else if (program.hasOwnProperty('end')) {
+  end();
 }
 
 function start () {
@@ -18,4 +20,8 @@ function start () {
   git.pull();
   git.checkout(`hotfix/${program.start}`, '-b');
   git.publish(`hotfix/${program.start}`);
+}
+
+function end () {
+  cloud.createPullRequest();
 }

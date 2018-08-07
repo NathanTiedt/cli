@@ -5,7 +5,7 @@ const program = require('commander');
 
 program
   .option('s, start <name>', 'creates a new feature branch')
-  .option('e, end <name>', 'ends a feaure branch')
+  .option('e, end <name>', 'ends a feature branch')
   .option('delete <name>', 'deletes a branch')
   .parse(process.argv);
 
