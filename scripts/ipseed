@@ -29,7 +29,7 @@ function seedEnv () {
 #      echo "$addr"
       echo "Host $2.${instances[$i]}$lc" >> ~/.ssh/config
       echo "    HostName $addr" >> ~/.ssh/config
-      if [[ -f ./ssh_user.bak ]]; then
+      if [[ -f ~/.ssh/ssh_user.bak ]]; then
         cat ~/.ssh/ssh_user.bak >> ~/.ssh/config
       fi
       lc=$((lc-1))
