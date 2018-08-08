@@ -30,7 +30,7 @@ function seedEnv () {
       echo "Host $2.${instances[$i]}$lc" >> ~/.ssh/config
       echo "    HostName $addr" >> ~/.ssh/config
       if [[ -f ./ssh_user.bak ]]; then
-        cat ./ssh_user.bak >> ~/.ssh/config
+        cat ~/.ssh/ssh_user.bak >> ~/.ssh/config
       fi
       lc=$((lc-1))
     done < ~/.ssh/tmp.txt
@@ -53,8 +53,8 @@ function seedIps () {
 # adds file to set default user for ssh login
 ##
 function setUser () {
-  touch ./ssh_user.bak
-  echo "    User $1" > ./ssh_user.bak
+  touch ~/.ssh/ssh_user.bak
+  echo "    User $1" > ~/.ssh/ssh_user.bak
 }
 
 ##
