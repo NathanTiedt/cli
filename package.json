@@ -6,8 +6,10 @@
   "bin": {
     "bit": "./src/bit/bit",
     "ip": "./scripts/ip",
+    "ipseed": "./scripts/ipseed",
+    "psqlFunction": "./scripts/psqlFunction",
     "session": "./scripts/aws_session",
-    "ipseed": "./scripts/ipseed"
+    "dev": "./scripts/dev"
   },
   "scripts": {
     "setup": "./scripts/setup.sh; npm link",

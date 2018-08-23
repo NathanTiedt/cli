@@ -1,24 +1,60 @@
 #!/usr/bin/env bash
 
+grepOptions='-i'
+
+function parseOptions () {
+  while test $# -gt 0; do
+    if [[ $1 == -* ]]; then
+      echo "$1"
+      case "$1" in 
+        -i|--ip)
+          grepOptions="$grepOptions -A 1"
+          ;;
+        *)
+          ;;
+      esac
+      shift
+    else
+      break
+    fi
+  done
+  echo "$grepOptions"
+}
+
 ##
 # greps through the ssh config file for the term passed in
 # any 'or' statement needs to be in quotes
 ##
 function parseSshConfig () {
-  cat ./temp > ./grepTemp
-  egrep -i "$1" ./grepTemp > ./temp
-  rm -rf ./grepTemp
+  cat /tmp/temp > /tmp/grepTemp
+  egrep $grepOptions "$1" /tmp/grepTemp > /tmp/temp
+  rm -rf /tmp/grepTemp
 }
 
 ##
 # Main control loop
 ##
+## TODO: check for flag to output ip address also
+while test $# -gt 0; do
+  if [[ $1 == -* ]]; then
+    case "$1" in 
+      -i|--ip)
+        grepOptions="$grepOptions -A 1"
+        ;;
+      *)
+        ;;
+    esac
+    shift
+  else
+    break
+  fi
+done
 touch ~/.ssh/config # makes sure config file exists
-cat ~/.ssh/config > ./temp # outputs to temp file
+cat ~/.ssh/config > /tmp/temp # outputs to temp file
 while test $# -gt 0; do
   parseSshConfig $1
   shift
 done  # loops though greping for each arg passed in
 
-cat ./temp  # prints out final lines
-rm -rf ./temp  # removes temp file
+cat /tmp/temp  # prints out final lines
+rm -rf /tmp/temp  # removes temp file
