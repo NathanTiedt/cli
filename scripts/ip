@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 grepOptions='-i'
+ssh=false
 
 function parseOptions () {
   while test $# -gt 0; do
@@ -34,12 +35,15 @@ function parseSshConfig () {
 ##
 # Main control loop
 ##
-## TODO: check for flag to output ip address also
+## TODO: add in ssh flag. mainly the logic
 while test $# -gt 0; do
   if [[ $1 == -* ]]; then
     case "$1" in 
       -i|--ip)
         grepOptions="$grepOptions -A 1"
+        ;;
+      -s|--ssh)
+        ssh=true
         ;;
       *)
         ;;

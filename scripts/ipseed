@@ -39,6 +39,15 @@ function seedEnv () {
 }
 
 ##
+# inserts some default ip addresses with set names
+##
+function seedDefaultIps () {
+  echo "Seeding Default Ips"
+  echo "Host puppet" >> ~/.ssh/config
+  echo "    HostName 10.1.60.9" >> ~/.ssh/config
+}
+
+##
 # executes a set of seeds for each environment
 ##
 function seedIps () {
@@ -71,6 +80,7 @@ function removeOldIps () {
 function runSeed () {
   echo "Removing Old Ips"
   removeOldIps
+  seedDefaultIps
   seedIps
   echo "Done Seeding Ips"
 }
