@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "bin": {
     "bit": "./src/bit/bit",
+    "cli": "./scripts/cli",
     "dev": "./scripts/dev",
     "ip": "./scripts/ip",
     "ipseed": "./scripts/ipseed",

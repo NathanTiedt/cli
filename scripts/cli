@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+help=(""
+"Quick helper for the CLI Tools"
+"Only current option:"
+""
+"list             prints list of current tools"
+"")
+
+list=(""
+"RZ CLI Tools"
+"Let's do some shit!"
+""
+"Current CLI Tools:"
+"dev              connects to the dev database using the psqlFunction tool"
+"ip               searches the stored host names and outputs matches"
+"ipseed           gets current ec2 instance ips and stores them under host names"
+"prod             connects to the prod database using the psqlFunction tool"
+"session          sets a temporary aws session for access aws cli commands"
+"stage            connects to the stage database using the psqlFunction tool"
+"")
+
+
+###########################################################################
+##                      MAIN CONTROL LOOP                                ##
+###########################################################################
+if [[ -z "$1" ]]; then
+  # they didn't pass anything in. print out help menu
+  printf "%s\n" "${help[@]}"
+  exit 1
+fi
+case "$1" in
+  # print out a list of current rz dev tools
+  list)
+    printf "%s\n" "${list[@]}"
+    ;;
+  # TODO: maybe something else too?
+  # and default to help command
+  *)
+    echo "Not a recognized option"
+    printf "%s\n" "${help[@]}"
+esac
+

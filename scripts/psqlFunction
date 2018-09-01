@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 ##
 # parent function for accessing psql database connections
 # passwords need to be in your .pgpass file
@@ -7,6 +8,19 @@
 # @name psqlFunction
 # @author Nate Tiedt
 ##
+help=("PSQL Wrapper for easier commands"
+      "Should be called by wrapper functions, not directly"
+      "Current wrapper functions: 'dev', 'stage', 'prod'"
+      ""
+      "Accepts certain psql arguments"
+      "Current Options:"
+      ""
+      "-f <file>    executes following sql file"
+      "             outputs return to stdout (usually console)"
+      "-c <file>    executes following sql command"
+      "             outputs return to stdout (usually console)"
+      "-u <user>    use following user instead of default"
+      "             default is rzpostgres")
 
 # Global Variables
 user=rzpostgres
@@ -81,7 +95,7 @@ function parseArgs () {
         ;;
       # output the help menu
       help|-h|--help)
-        cat ./psqlFunction-help.txt
+        printf "%s\n" "${help[@]}"
         exit 0
         ;;
       # if it's not recognized, explain and exit
