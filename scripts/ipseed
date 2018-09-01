@@ -7,8 +7,8 @@ sshQuery=Reservations[*].Instances[*].[PrivateIpAddress]
 # each pair of arrays has to line up index wise!
 declare -a envNames=("dev" "stage" "prod") # indexes need to match with $envs[]
 declare -a envs=("Name=tag:Env,Values=development" "Name=tag:Env,Values=staging" "Name=tag:Env,Values=production")
-declare -a instances=("app" "geo" "web" "risk") # indexes needs to match with $filters[]
-declare -a filters=("Name=tag:Tier,Values=App" "Name=tag:Tier,Values=Geoserver" "Name=tag:Tier,Values=Web" "Name=tag:Tier,Values=RZRiskAPI")
+declare -a instances=("app" "geo" "web" "risk" "ldap") # indexes needs to match with $filters[]
+declare -a filters=("Name=tag:Tier,Values=App" "Name=tag:Tier,Values=Geoserver" "Name=tag:Tier,Values=Web" "Name=tag:Tier,Values=RZRiskAPI" "Name=tag:Tier,Values=LDAP")
 
 ##
 # runs through each instance type from $instances[]

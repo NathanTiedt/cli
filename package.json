@@ -5,11 +5,13 @@
   "main": "src/index.js",
   "bin": {
     "bit": "./src/bit/bit",
+    "dev": "./scripts/dev",
     "ip": "./scripts/ip",
     "ipseed": "./scripts/ipseed",
+    "prod": "./scripts/prod",
     "psqlFunction": "./scripts/psqlFunction",
     "session": "./scripts/aws_session",
-    "dev": "./scripts/dev"
+    "stage": "./scripts/stage"
   },
   "scripts": {
     "setup": "./scripts/setup.sh; npm link",
