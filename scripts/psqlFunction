@@ -16,6 +16,8 @@ help=(""
 "Accepts certain psql arguments"
 "Current Options:"
 ""
+"-d <dbname>  connects to a different db. NOT hostname"
+"             this is used to grep .pgpass for host"
 "-f <file>    executes following sql file"
 "             outputs return to stdout (usually console)"
 "-c <file>    executes following sql command"
@@ -25,47 +27,25 @@ help=(""
 "")
 
 # Global Variables
-user=rzpostgres
+database='redzone'
+env=''
 extra=''
 host=''
+user=rzpostgres
 
 ##
-# parses the environment to use from the first variable
-# first arg should be environment, which sets the host
 #
-# @todo parse pgpass for host names
-# @name parseEnvironment
-# @param {string} $1 - environment name
-# @returns {string} the host variable gets set
 ##
-function parseEnvironment () {
-  case $1 in
-    gold)
-      host=golddb1.redzonesoftware.local
-      ;;
-    dev)
-      host=dev-pg-redzone.cryj1vgclkf9.us-east-1.rds.amazonaws.com
-      ;;
-    stage)
-      host=stage-pg-redzone-v3.cryj1vgclkf9.us-east-1.rds.amazonaws.com
-      ;;
-    prod)
-      host=prod-pg-redzone.cryj1vgclkf9.us-east-1.rds.amazonaws.com
-      ;;
-    *)
-      echo 'First argument not a recognized environment'
-      echo 'Most likely you need to run a wrapper function instead of this one'
-      echo 'Examples: "dev", "stage", or "prod"'
-      exit 1
-      ;;
-  esac
+function getHost () {
+  host=$(cat ~/.pgpass | grep -i "$database" | grep -i "$env" | head -1 | cut -d':' -f1)
+  echo "Connecting to $host"
 }
 
 ##
 # runs through the args 
 # sets options for psql call
 # 
-# @TODO: add copy command
+# @todo add copy command
 # @name parseArgs
 # @params {string} $@ - all the arguments passed into this script
 # @returns {string} - the extra options for psql and perhaps a new user
@@ -79,6 +59,13 @@ function parseArgs () {
       -c)
         shift
         extra="$extra -c '$1'"
+        shift
+        ;;
+      # connect to the following database name
+      # this isn't the host, though it will affect host
+      -d|--dbname)
+        shift
+        database=$1
         shift
         ;;
       # execute a single sql file and then exit the connection
@@ -110,9 +97,42 @@ function parseArgs () {
   done
 }
 
+##
+# parses the environment to use from the first variable
+# first arg should be environment, which sets the host
+#
+# @todo parse pgpass for host names
+# @name parseEnvironment
+# @param {string} $1 - environment name
+# @returns {string} the host variable gets set
+##
+function parseEnvironment () {
+  case $1 in
+    gold)
+      env='gold'
+      ;;
+    dev)
+      env='dev'
+      ;;
+    stage)
+      env='stage'
+      ;;
+    prod)
+      env='prod'
+      ;;
+    *)
+      echo 'First argument not a recognized environment'
+      echo 'Most likely you need to run a wrapper function instead of this one'
+      echo 'Examples: "dev", "stage", or "prod"'
+      exit 1
+      ;;
+  esac
+}
+
 ###########################################################################
 ##                      MAIN CONTROL LOOP                                ##
 ###########################################################################
 parseEnvironment $1
 parseArgs $@
-psql -h $host -p 5432 -U $user $extra redzone 
+getHost
+psql -h $host -p 5432 -U $user $extra $database
