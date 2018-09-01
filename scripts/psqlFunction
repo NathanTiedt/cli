@@ -1,0 +1,101 @@
+#!/usr/bin/env bash
+##
+# parent function for accessing psql database connections
+# passwords need to be in your .pgpass file
+# should be called through the wrapper functions, such as 'dev' or 'stage'
+#
+# @name psqlFunction
+# @author Nate Tiedt
+##
+
+# Global Variables
+user=rzpostgres
+extra=''
+host=''
+
+##
+# parses the environment to use from the first variable
+# first arg should be environment, which sets the host
+#
+# @todo parse pgpass for host names
+# @name parseEnvironment
+# @param {string} $1 - environment name
+# @returns {string} the host variable gets set
+##
+function parseEnvironment () {
+  case $1 in
+    gold)
+      host=golddb1.redzonesoftware.local
+      ;;
+    dev)
+      host=dev-pg-redzone.cryj1vgclkf9.us-east-1.rds.amazonaws.com
+      ;;
+    stage)
+      host=stage-pg-redzone-v3.cryj1vgclkf9.us-east-1.rds.amazonaws.com
+      ;;
+    prod)
+      host=prod-pg-redzone.cryj1vgclkf9.us-east-1.rds.amazonaws.com
+      ;;
+    *)
+      echo 'First argument not a recognized environment'
+      echo 'Most likely you need to run a wrapper function instead of this one'
+      echo 'Examples: "dev", "stage", or "prod"'
+      exit 1
+      ;;
+  esac
+}
+
+##
+# runs through the args 
+# sets options for psql call
+# 
+# @TODO: add copy command
+# @name parseArgs
+# @params {string} $@ - all the arguments passed into this script
+# @returns {string} - the extra options for psql and perhaps a new user
+##
+function parseArgs () {
+  while test $# -gt 0; do
+    case $1 in
+      # executes the following sql command
+      # results are outputed to console
+      -c)
+        shift
+        extra="$extra -c '$1'"
+        shift
+        ;;
+      # execute a single sql file and then exit the connection
+      # file returns are outputed to console
+      -f)
+        shift
+        extra="$extra -f $1"
+        shift
+        ;;
+      # use a specific user. Next arg needs to be a valid user in pgpass
+      # psql call defaults to rzpostgres
+      -u)
+        shift
+        user="$1"
+        shift
+        ;;
+      # output the help menu
+      help|-h|--help)
+        cat ./psqlFunction-help.txt
+        exit 0
+        ;;
+      # if it's not recognized, explain and exit
+      *)
+        echo "Unrecognized option: $1"
+        echo "Canceling command"
+        exit 1
+        ;;
+    esac
+  done
+}
+
+###########################################################################
+##                      MAIN CONTROL LOOP                                ##
+###########################################################################
+parseEnvironment $1
+parseArgs $@
+psql -h $host -p 5432 -U $user $extra redzone 
