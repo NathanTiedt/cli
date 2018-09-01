@@ -55,6 +55,7 @@ function parseEnvironment () {
 # @returns {string} - the extra options for psql and perhaps a new user
 ##
 function parseArgs () {
+  shift     # shift once to get rid of environment argument
   while test $# -gt 0; do
     case $1 in
       # executes the following sql command
