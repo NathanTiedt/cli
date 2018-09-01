@@ -1,8 +1,38 @@
 #!/usr/bin/env bash
 
+help=(""
+"Ip Search Tool"
+"Searches through stored hostnames for ec2 instances"
+"More than one search term will operate as an AND statement"
+""
+"Options:"
+""
+"-i, --ip     includes the ip address in the output"
+"-s, --ssh    if a single instance is returned, ssh into it"
+""
+"Examples:"
+"ip dev web"
+"   - would output the host name for the dev web instance"
+"ip stage"
+"   - would output all names of stage instances"
+"ip -i prod web"
+"   - would out put host name and ip address of prod web"
+"ip -s prod app"
+"   - would output host name for prod app and start ssh session"
+"")
+
+
 grepOptions='-i'
 ssh=false
 
+##
+# parses the options passed in to script
+#
+# @deprecated
+# @name parseOptions
+# @params {string[]} $@ - all the arguments passed into the script
+# @returns {string} - sets variables to match options
+##
 function parseOptions () {
   while test $# -gt 0; do
     if [[ $1 == -* ]]; then
@@ -50,6 +80,12 @@ while test $# -gt 0; do
     esac
     shift
   else
+    case "$1" in
+      help|-h|--help)
+        printf "%2\n" "${help[@]}"
+        exit 0
+        ;;
+    esac
     break
   fi
 done

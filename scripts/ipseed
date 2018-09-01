@@ -1,10 +1,25 @@
 #!/usr/bin/env bash
 
+##
+# script that queries aws for ec2 instance ip addresses
+# stores them with easily readable host names
+# uses the arrays stored here to cycle through tiers and environments
+##
+
+help=(""
+"SCript to Query AWS for Ec2 ip addresses"
+"Stores them under hostnames for ssh commands"
+""
+"Options:"
+"-u, --user <user>    Set a user for use with hostnames"
+"")
+
 # queries for data
 sshQuery=Reservations[*].Instances[*].[PrivateIpAddress]
 
 # Set of arrays for environments and instances
 # each pair of arrays has to line up index wise!
+# if you need to add a tier or environment, this is the location!
 declare -a envNames=("dev" "stage" "prod") # indexes need to match with $envs[]
 declare -a envs=("Name=tag:Env,Values=development" "Name=tag:Env,Values=staging" "Name=tag:Env,Values=production")
 declare -a instances=("app" "geo" "web" "risk" "ldap") # indexes needs to match with $filters[]
@@ -96,6 +111,10 @@ case "$1" in
     else
       echo "Not enough arguments passed in!"
     fi
+    ;;
+  help|--help|-h)
+    printf "%s\n" "${help[@]}"
+    exit 1
     ;;
   *)
     runSeed

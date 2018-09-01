@@ -8,19 +8,21 @@
 # @name psqlFunction
 # @author Nate Tiedt
 ##
-help=("PSQL Wrapper for easier commands"
-      "Should be called by wrapper functions, not directly"
-      "Current wrapper functions: 'dev', 'stage', 'prod'"
-      ""
-      "Accepts certain psql arguments"
-      "Current Options:"
-      ""
-      "-f <file>    executes following sql file"
-      "             outputs return to stdout (usually console)"
-      "-c <file>    executes following sql command"
-      "             outputs return to stdout (usually console)"
-      "-u <user>    use following user instead of default"
-      "             default is rzpostgres")
+help=(""
+"PSQL Wrapper for easier commands"
+"Should be called by wrapper functions, not directly"
+"Current wrapper functions: 'dev', 'stage', 'prod'"
+""
+"Accepts certain psql arguments"
+"Current Options:"
+""
+"-f <file>    executes following sql file"
+"             outputs return to stdout (usually console)"
+"-c <file>    executes following sql command"
+"             outputs return to stdout (usually console)"
+"-u <user>    use following user instead of default"
+"             default is rzpostgres"
+"")
 
 # Global Variables
 user=rzpostgres
