@@ -1,0 +1,37 @@
+#!/usr/bin/env node
+
+const { git, cloud } = require('./js');
+const program = require('commander');
+
+program
+  .option('s, start <name>', 'creates a new hotfix branch')
+  .option('e, end <name>', 'ends a hotfix branch')
+  .option('delete <name>', 'deletes a branch')
+  .parse(process.argv);
+
+if (program.hasOwnProperty('start')) {
+  start();
+} else if (program.hasOwnProperty('end')) {
+  finish();
+} else if (program.hasOwnProperty('delete')) {
+  removeBranch();
+}
+
+function removeBranch () {
+  git.deleteBranch(`hotfix/${program.delete}`);
+}
+
+function start () {
+  git.checkout('master');
+  git.pull();
+  git.checkout(`hotfix/${program.start}`, '-b');
+  git.publish(`hotfix/${program.start}`);
+}
+
+function finish () {
+  git.checkout(`hotfix/${program.end}`);
+  git.commit(`${program.end} hotfix finish`);
+  git.push();
+  git.createPullRequest(`hotfix/${program.end}`, `master`);
+  git.deleteBranch(`hotfix/${program.end}`);
+}
