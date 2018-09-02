@@ -32,6 +32,7 @@ function finish () {
   git.checkout(`release/${program.end}`);
   git.commit(`${program.end} release finish`);
   git.push();
+  git.tag(`${program.end}`);
   git.createPullRequest(`release/${program.end}`, `develop`);
   git.createPullRequest(`release/${program.end}`, `master`);
   git.deleteBranch(`release/${program.end}`);

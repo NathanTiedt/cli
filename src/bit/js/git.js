@@ -11,6 +11,7 @@ module.exports = {
   publish: publish,
   pull: pull,
   push: push,
+  tag: tag,
 };
 
 function checkout ( branch, options='' ) {
@@ -41,4 +42,9 @@ function pull () {
 
 function push () {
   shell.exec('git push');
+}
+
+function tag ( name ) {
+  shell.exec(`git tag ${name}`);
+  shell.exec(`git push origin ${name}`);
 }
