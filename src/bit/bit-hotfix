@@ -12,7 +12,7 @@ program
 if (program.hasOwnProperty('start')) {
   start();
 } else if (program.hasOwnProperty('end')) {
-  end();
+  finish();
 }
 
 function start () {
@@ -22,6 +22,10 @@ function start () {
   git.publish(`hotfix/${program.start}`);
 }
 
-function end () {
-  cloud.createPullRequest();
+function finish () {
+  git.checkout(`hotfix/${program.end}`);
+  git.commit(`${program.end} hotfix finish`);
+  git.push();
+  git.createPullRequest(`hotfix/${program.end}`, `master`);
+  git.deleteBranch(`hotfix/${program.end}`);
 }

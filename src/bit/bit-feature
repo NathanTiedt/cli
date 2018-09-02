@@ -11,8 +11,7 @@ program
 
 if (program.hasOwnProperty('start')) {
   start();
-}
-if (program.hasOwnProperty('end')) {
+} else if (program.hasOwnProperty('end')) {
   finish();
 }
 

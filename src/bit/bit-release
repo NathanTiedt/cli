@@ -11,6 +11,8 @@ program
 
 if (program.hasOwnProperty('start')) {
   start();
+} else if (program.hasOwnProperty('end')) {
+  finish();
 }
 
 function start () {
@@ -20,3 +22,11 @@ function start () {
   git.publish(`release/${program.start}`);
 }
 
+function finish () {
+  git.checkout(`release/${program.end}`);
+  git.commit(`${program.end} release finish`);
+  git.push();
+  git.createPullRequest(`release/${program.end}`, `develop`);
+  git.createPullRequest(`release/${program.end}`, `master`);
+  git.deleteBranch(`release/${program.end}`);
+}
