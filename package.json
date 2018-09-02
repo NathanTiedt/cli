@@ -1,6 +1,6 @@
 {
   "name": "rz_cli",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "set of command line tools for Redzone",
   "main": "src/index.js",
   "bin": {

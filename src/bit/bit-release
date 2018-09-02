@@ -13,6 +13,12 @@ if (program.hasOwnProperty('start')) {
   start();
 } else if (program.hasOwnProperty('end')) {
   finish();
+} else if (program.hasOwnProperty('delete')) {
+  removeBranch();
+}
+
+function removeBranch () {
+  git.deleteBranch(`release/${program.delete}`);
 }
 
 function start () {
