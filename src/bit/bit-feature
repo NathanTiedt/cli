@@ -25,6 +25,8 @@ function start () {
 
 function finish () {
   git.checkout(`feature/${program.end}`);
-  output = git.push();
+  git.commit(`${program.end} feature finish`);
+  git.push();
   git.createPullRequest(`feature/${program.end}`, `develop`);
+  git.deleteBranch(`feature/${program.end}`);
 }
