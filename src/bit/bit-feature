@@ -12,10 +12,19 @@ program
 if (program.hasOwnProperty('start')) {
   start();
 }
+if (program.hasOwnProperty('end')) {
+  finish();
+}
 
 function start () {
   git.checkout('develop');
   git.pull();
   git.checkout(`feature/${program.start}`, '-b');
   git.publish(`feature/${program.start}`);
+}
+
+function finish () {
+  git.checkout(`feature/${program.end}`);
+  output = git.push();
+  git.createPullRequest(`feature/${program.end}`, `develop`);
 }

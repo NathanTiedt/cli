@@ -25,6 +25,26 @@ usage=(""
 ## 
 
 
+## checks whether the session was set successfully
+function checkSuccess() {
+  failure=0
+  if [ -z $AWS_SECRET_ACCESS_KEY ]; then
+    let "failure++"
+  fi
+  if [ -z $AWS_SESSION_TOKEN ]; then
+    let "failure++"
+  fi
+  if [ -z $AWS_ACCESS_KEY_ID ]; then
+    let "failure++"
+  fi
+
+  if [ $failure -eq 0 ]; then
+    echo "Session set successfully"
+  else
+    echo "Failed to set session with $failure issues"
+  fi
+}
+
 ## hits AWS for a temporary session token
 #  token is json return that is parsed for the various data
 function createSession() {
@@ -59,6 +79,17 @@ function createSession() {
   done < /tmp/stokesup
 } 
 
+##
+# creates teh file for storing temp sessions
+# also adds a source to the .bash_profile so it loads with every window/tab
+##
+function init () {
+  if [[ -z "$( grep -i 'temp_session' ~/.bash_profile )" ]]; then
+    echo "source ~/.aws/temp_session  # this exports the temp aws sessions" >> ~/.bash_profile
+    echo "" > ~/.aws/temp_session
+  fi
+}
+
 ## clears out environment variables and temp session file
 function unsetSession() {
   unset AWS_SECRET_ACCESS_KEY
@@ -67,25 +98,6 @@ function unsetSession() {
   echo "" > ~/.aws/temp_session
 }
 
-## checks whether the session was set successfully
-function checkSuccess() {
-  failure=0
-  if [ -z $AWS_SECRET_ACCESS_KEY ]; then
-    let "failure++"
-  fi
-  if [ -z $AWS_SESSION_TOKEN ]; then
-    let "failure++"
-  fi
-  if [ -z $AWS_ACCESS_KEY_ID ]; then
-    let "failure++"
-  fi
-
-  if [ $failure -eq 0 ]; then
-    echo "Session set successfully"
-  else
-    echo "Failed to set session with $failure issues"
-  fi
-}
 
 ###################
 ##  Main Control ##
@@ -97,28 +109,24 @@ if [ -z $1 ]; then
 else
   case "$1" in
     init)
-      # creates the file for storing temp sessions 
-      # and adds a source line to .bash_profile to load it everytime a tab is opened
-      echo "source ~/.aws/temp_session  # this exports the temp aws sessions" >> ~/.bash_profile
-      echo "alias session='source aws_session'" >> ~/.bash_profile
-      echo "" > ~/.aws/temp_session
-    ;;
+      init
+      ;;
     config)
       # needs a MFA ARN as the second argument
       # only needs to be run once per MFA device
       echo $2 > ~/.aws/mfa_arn
       echo "ARN set"
-    ;;
+      ;;
     clear)
       # clears out the session variables
       # needed to create a new session since temp sessions can't make a new temp session
       unsetSession
       echo "Session variables unset"
-    ;;
+      ;;
     usage|man|help)
       # print out usage options
       printf '%s\n' "${usage[@]}"
-    ;;
+      ;;
     *)
       # this is meant to catch the mfa code
       # will fail if it's not a 6 digit code
