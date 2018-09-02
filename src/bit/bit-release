@@ -1,0 +1,38 @@
+#!/usr/bin/env node
+
+const { git } = require('./js');
+const program = require('commander');
+
+program
+  .option('s, start <name>', 'creates a new release branch')
+  .option('e, end <name>', 'ends a release branch')
+  .option('delete <name>', 'deletes a branch')
+  .parse(process.argv);
+
+if (program.hasOwnProperty('start')) {
+  start();
+} else if (program.hasOwnProperty('end')) {
+  finish();
+} else if (program.hasOwnProperty('delete')) {
+  removeBranch();
+}
+
+function removeBranch () {
+  git.deleteBranch(`release/${program.delete}`);
+}
+
+function start () {
+  git.checkout('develop');
+  git.pull();
+  git.checkout(`release/${program.start}`, '-b');
+  git.publish(`release/${program.start}`);
+}
+
+function finish () {
+  git.checkout(`release/${program.end}`);
+  git.commit(`${program.end} release finish`);
+  git.push();
+  git.createPullRequest(`release/${program.end}`, `develop`);
+  git.createPullRequest(`release/${program.end}`, `master`);
+  git.deleteBranch(`release/${program.end}`);
+}

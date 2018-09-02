@@ -1,0 +1,123 @@
+#!/usr/bin/env bash
+
+##
+# script that queries aws for ec2 instance ip addresses
+# stores them with easily readable host names
+# uses the arrays stored here to cycle through tiers and environments
+##
+
+help=(""
+"SCript to Query AWS for Ec2 ip addresses"
+"Stores them under hostnames for ssh commands"
+""
+"Options:"
+"-u, --user <user>    Set a user for use with hostnames"
+"")
+
+# queries for data
+sshQuery=Reservations[*].Instances[*].[PrivateIpAddress]
+
+# Set of arrays for environments and instances
+# each pair of arrays has to line up index wise!
+# if you need to add a tier or environment, this is the location!
+declare -a envNames=("dev" "stage" "prod") # indexes need to match with $envs[]
+declare -a envs=("Name=tag:Env,Values=development" "Name=tag:Env,Values=staging" "Name=tag:Env,Values=production")
+declare -a instances=("app" "geo" "web" "risk" "ldap") # indexes needs to match with $filters[]
+declare -a filters=("Name=tag:Tier,Values=App" "Name=tag:Tier,Values=Geoserver" "Name=tag:Tier,Values=Web" "Name=tag:Tier,Values=RZRiskAPI" "Name=tag:Tier,Values=LDAP")
+
+##
+# runs through each instance type from $instances[]
+# and grabs the ips. inserts those ips into ~/.ssh/config file
+##
+function seedEnv () {
+  length=${#instances[@]}
+  for (( i=0; i<${length}; i++ )); do
+#    echo "$2.${instances[$i]}"
+    aws ec2 describe-instances --filter "$1" "${filters[$i]}" --query "$sshQuery" --output text > ~/.ssh/tmp.txt
+    lc=$( cat ~/.ssh/tmp.txt | wc -l )
+    if [ $lc -eq 1 ]; then
+      lc=""
+    else
+      lc=$((lc))
+    fi
+    while read addr; do
+#      echo "$addr"
+      echo "Host $2.${instances[$i]}$lc" >> ~/.ssh/config
+      echo "    HostName $addr" >> ~/.ssh/config
+      if [[ -f ~/.ssh/ssh_user.bak ]]; then
+        cat ~/.ssh/ssh_user.bak >> ~/.ssh/config
+      fi
+      lc=$((lc-1))
+    done < ~/.ssh/tmp.txt
+    rm -rf ~/.ssh/tmp.txt
+  done
+}
+
+##
+# inserts some default ip addresses with set names
+##
+function seedDefaultIps () {
+  echo "Seeding Default Ips"
+  echo "Host puppet" >> ~/.ssh/config
+  echo "    HostName 10.1.60.9" >> ~/.ssh/config
+}
+
+##
+# executes a set of seeds for each environment
+##
+function seedIps () {
+  envLength=${#envs[@]}
+  for (( e=0; e<${envLength}; e++ )); do
+    echo "Seeding For ${envNames[$e]} Environment"
+    seedEnv ${envs[$e]} ${envNames[$e]}
+  done
+}
+
+##
+# adds file to set default user for ssh login
+##
+function setUser () {
+  touch ~/.ssh/ssh_user.bak
+  echo "    User $1" > ~/.ssh/ssh_user.bak
+}
+
+##
+# removes the old ips from the config file
+##
+function removeOldIps () {
+  touch ~/.ssh/config
+  echo "# config file for aws ip addresses" > ~/.ssh/config
+}
+
+##
+# first removes then seeds ips
+##
+function runSeed () {
+  echo "Removing Old Ips"
+  removeOldIps
+  seedDefaultIps
+  seedIps
+  echo "Done Seeding Ips"
+}
+
+
+####################
+##  MAIN CONTROL  ##
+####################
+case "$1" in
+  --user|-u)
+    if [[ $# -gt 1 ]]; then
+      setUser $2
+    else
+      echo "Not enough arguments passed in!"
+    fi
+    ;;
+  help|--help|-h)
+    printf "%s\n" "${help[@]}"
+    exit 1
+    ;;
+  *)
+    runSeed
+    ;;
+esac
+

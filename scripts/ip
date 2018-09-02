@@ -1,0 +1,100 @@
+#!/usr/bin/env bash
+
+help=(""
+"Ip Search Tool"
+"Searches through stored hostnames for ec2 instances"
+"More than one search term will operate as an AND statement"
+""
+"Options:"
+""
+"-i, --ip     includes the ip address in the output"
+"-s, --ssh    if a single instance is returned, ssh into it"
+""
+"Examples:"
+"ip dev web"
+"   - would output the host name for the dev web instance"
+"ip stage"
+"   - would output all names of stage instances"
+"ip -i prod web"
+"   - would out put host name and ip address of prod web"
+"ip -s prod app"
+"   - would output host name for prod app and start ssh session"
+"")
+
+
+grepOptions='-i'
+ssh=false
+
+##
+# parses the options passed in to script
+#
+# @deprecated
+# @name parseOptions
+# @params {string[]} $@ - all the arguments passed into the script
+# @returns {string} - sets variables to match options
+##
+function parseOptions () {
+  while test $# -gt 0; do
+    if [[ $1 == -* ]]; then
+      echo "$1"
+      case "$1" in 
+        -i|--ip)
+          grepOptions="$grepOptions -A 1"
+          ;;
+        *)
+          ;;
+      esac
+      shift
+    else
+      break
+    fi
+  done
+  echo "$grepOptions"
+}
+
+##
+# greps through the ssh config file for the term passed in
+# any 'or' statement needs to be in quotes
+##
+function parseSshConfig () {
+  cat /tmp/temp > /tmp/grepTemp
+  egrep $grepOptions "$1" /tmp/grepTemp > /tmp/temp
+  rm -rf /tmp/grepTemp
+}
+
+##
+# Main control loop
+##
+## TODO: add in ssh flag. mainly the logic
+while test $# -gt 0; do
+  if [[ $1 == -* ]]; then
+    case "$1" in 
+      -i|--ip)
+        grepOptions="$grepOptions -A 1"
+        ;;
+      -s|--ssh)
+        ssh=true
+        ;;
+      *)
+        ;;
+    esac
+    shift
+  else
+    case "$1" in
+      help|-h|--help)
+        printf "%2\n" "${help[@]}"
+        exit 0
+        ;;
+    esac
+    break
+  fi
+done
+touch ~/.ssh/config # makes sure config file exists
+cat ~/.ssh/config > /tmp/temp # outputs to temp file
+while test $# -gt 0; do
+  parseSshConfig $1
+  shift
+done  # loops though greping for each arg passed in
+
+cat /tmp/temp  # prints out final lines
+rm -rf /tmp/temp  # removes temp file

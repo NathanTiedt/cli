@@ -1,0 +1,141 @@
+#!/usr/bin/env bash
+
+usage=(""
+"Session commands: "
+""
+" source session <MFA_Token>"
+"   - creates a new temporary session and stores the session info"
+" source session clear"
+"   - removes a temporary session from environment variables and temp file"
+""
+"Setup commands:"
+""
+" aws_session init"
+"   - must be run before any other commands"
+" aws_session config <MFA_ARN>"
+"   - stores the ARN of the MFA device. Must be run second before other commands"
+"")
+
+
+##           GENERAL INFO
+#  creates a temporary session with AWS when MFA is forced
+#  stores the temp session in three environement variables that override the main aws config file
+#  also stores three export commands in a file to be run everytime the .bash_profile is run
+#  temp sessions expire after 1 day
+## 
+
+
+## checks whether the session was set successfully
+function checkSuccess() {
+  failure=0
+  if [ -z $AWS_SECRET_ACCESS_KEY ]; then
+    let "failure++"
+  fi
+  if [ -z $AWS_SESSION_TOKEN ]; then
+    let "failure++"
+  fi
+  if [ -z $AWS_ACCESS_KEY_ID ]; then
+    let "failure++"
+  fi
+
+  if [ $failure -eq 0 ]; then
+    echo "Session set successfully"
+  else
+    echo "Failed to set session with $failure issues"
+  fi
+}
+
+## hits AWS for a temporary session token
+#  token is json return that is parsed for the various data
+function createSession() {
+  # AWS call for temp session
+  aws sts get-session-token \
+    --serial-number "$(< ~/.aws/mfa_arn)" \
+    --token-code $1 \
+    --duration-seconds 86400 \
+    > /tmp/stokesup
+  # parses return that was stored in /tmp/stokesup
+  while read line; do
+    case "$line" in
+      *"SecretAccessKey"*)
+        temp="${line##*: \"}"
+        temp2="${temp%%\"*}"
+        export AWS_SECRET_ACCESS_KEY="$temp2"
+        echo "export AWS_SECRET_ACCESS_KEY=$temp2" >> ~/.aws/temp_session
+      ;;
+      *"SessionToken"*)
+        temp="${line##*: \"}"
+        temp2="${temp%%\"*}"
+        export AWS_SESSION_TOKEN="$temp2"
+        echo "export AWS_SESSION_TOKEN=$temp2" >> ~/.aws/temp_session
+      ;;
+      *"AccessKeyId"*)
+        temp="${line##*: \"}"
+        temp2="${temp%%\"*}"
+        export AWS_ACCESS_KEY_ID="$temp2"
+        echo "export AWS_ACCESS_KEY_ID=$temp2" >> ~/.aws/temp_session
+      ;;
+    esac
+  done < /tmp/stokesup
+} 
+
+##
+# creates teh file for storing temp sessions
+# also adds a source to the .bash_profile so it loads with every window/tab
+##
+function init () {
+  if [[ -z "$( grep -i 'temp_session' ~/.bash_profile )" ]]; then
+    echo "source ~/.aws/temp_session  # this exports the temp aws sessions" >> ~/.bash_profile
+    echo "" > ~/.aws/temp_session
+  fi
+}
+
+## clears out environment variables and temp session file
+function unsetSession() {
+  unset AWS_SECRET_ACCESS_KEY
+  unset AWS_SESSION_TOKEN
+  unset AWS_ACCESS_KEY_ID
+  echo "" > ~/.aws/temp_session
+}
+
+
+###################
+##  Main Control ##
+###################
+if [ -z $1 ]; then
+  # if no parameter passed in, passively aggresively print usage instructions
+  echo "This command can't read your mind. You need at least one argument."
+  printf '%s\n' "${usage[@]}"
+else
+  case "$1" in
+    init)
+      init
+      ;;
+    config)
+      # needs a MFA ARN as the second argument
+      # only needs to be run once per MFA device
+      echo $2 > ~/.aws/mfa_arn
+      echo "ARN set"
+      ;;
+    clear)
+      # clears out the session variables
+      # needed to create a new session since temp sessions can't make a new temp session
+      unsetSession
+      echo "Session variables unset"
+      ;;
+    usage|man|help)
+      # print out usage options
+      printf '%s\n' "${usage[@]}"
+      ;;
+    *)
+      # this is meant to catch the mfa code
+      # will fail if it's not a 6 digit code
+      # TODO: only unset session if success
+      unsetSession
+      createSession $1
+      checkSuccess
+      ipseed
+    ;;
+  esac
+fi
+

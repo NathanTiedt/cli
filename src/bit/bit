@@ -1,0 +1,15 @@
+#!/usr/bin/env node
+
+const {version} = require('../../package.json');
+const program = require('commander');
+
+/*
+ * main entry point for the command
+ */
+program
+  .version(version, '-v, --version')
+  .command('feature', 'feature stuff').alias('f')
+  .command('release', 'release stuff').alias('r')
+  .command('hotfix', 'hotfix stuff').alias('h')
+  .parse(process.argv);
+
