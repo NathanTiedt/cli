@@ -32,6 +32,7 @@ function finish () {
   git.checkout(`hotfix/${program.end}`);
   git.commit(`${program.end} hotfix finish`);
   git.push();
+  git.tag(`${program.end}`);
   git.createPullRequest(`hotfix/${program.end}`, `master`);
   git.deleteBranch(`hotfix/${program.end}`);
 }
