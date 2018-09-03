@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-configInfo=(""
+INSTRUCTIONS=(""
 "We need info from AWS for this step."
 "Secret Key and Access Key can be found in AWS Console"
 "Go to AWS Console -> IAM -> Users -> <YourUser> -> Security Credentials Tab -> Access Keys Section -> Create New Access Keys"
@@ -22,11 +22,16 @@ function installAWS () {
     echo "installing python to get pip"
     brew install python
   fi
-  pip install awscli --upgrade --user
+  ${PIP} install awscli --upgrade --user
+  if ! which aws; then
+    VERSION=$(python -v) || $(python3 -v)
+    echo "export PATH=~/Library/Python/${VERSION}/bin:$PATH" >> ~/.bash_profile
+    source ~/.bash_profile
+  fi
 }
 
 function runAwsConfigure () {
-  printf "%s\n" "${configInfo[@]}"
+  printf "%s\n" "${INSTRUCTIONS[@]}"
   read -n 1 -s -r -p "Get Access Keys and Press Any Key to Continue"
   aws configure
 }

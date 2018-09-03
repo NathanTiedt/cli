@@ -1,8 +1,15 @@
 
-Set of tools for:
-- Command line tool to store ip addresses ass easily understandable host names
-- Command line tool to create temporary sessions for AWS.
-- Command line tool to output host names
+RZ CLI
+======
+Command line tools for RZ Developers
+
+Installation
+------------
+The command line tools need to be symlinked and aws installed and configured.
+- run `npm run setup:aws` from the main directory
+- run `npm run setup` from the main directory
+
+Individual command line tools might need their own setup
 
 Installation
 ============
