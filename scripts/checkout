@@ -3,14 +3,14 @@
 branch=$1
 echo $branch
 if [[ ! -z "$branch" ]]; then
-  if [[ -z "$(git branch --all | grep '$branch')" ]]; then
+  if [[ $(git branch --all | grep "$branch") ]]; then
+    git checkout $branch
+    git pull
+  else
     echo "branch doesn't exist. creating"
     git pull
     git checkout -b $branch 
     git push --set-upstream origin $branch
-  else
-    git checkout $branch
-    git pull
   fi
 else
   echo 'No Arg supplied'
