@@ -19,7 +19,8 @@
     "stage": "./scripts/stage"
   },
   "scripts": {
-    "setup": "./scripts/setup.sh; npm link",
+    "setup": "npm link; ./scripts/setup.sh; ./scripts/setup_aws.sh",
+    "setup:aws": "./scripts/setup_aws.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
