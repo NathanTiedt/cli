@@ -33,5 +33,6 @@ function finish () {
   git.commit(`${program.end} feature finish`);
   git.push();
   git.createPullRequest(`feature/${program.end}`, `develop`);
+  git checkout(`develop`);
   git.deleteBranch(`feature/${program.end}`);
 }
