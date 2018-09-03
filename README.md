@@ -6,48 +6,23 @@ Command line tools for RZ Developers
 Installation
 ------------
 The command line tools need to be symlinked and aws installed and configured.
-- run `npm run setup:aws` from the main directory
-- run `npm run setup` from the main directory
+- FIRST: run `npm run setup:aws` from the main directory
+- SECOND: run `npm run setup` from the main directory
 
 Individual command line tools might need their own setup
 
-Installation
-============
-1. clone git repo
-2. Install AWS CLI if needed (see next section for instructions)
-3. from the location of the git repo, run `sudo cp session /usr/local/bin`
-4. then restart your terminal, open a new tab, or type `source ~/.bash_profile`
-5. run `aws_session init`
-6. go in to the aws console->IAM->Users->{your-user}->Security Credentials Tab->Copy 'Assigned MFA Device'
-7. run `aws_session config <MFA-Device-ARN-From-Last-Step>`
-8. should be all set up!!
-
-Install AWS CLI
-===============
-1. install aws cli (if you haven't done so already)
-    * (if you don't have homebrew) `ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
-    * (if you don't have python3) `brew install python3`
-    * `pip3 install --upgrade --user awscli`
-    * type `aws --version` to see if it installed
-    * (if that failed or returned nothing) add the aws path to PATH
-    (aws cli downloaded to ~/Library/Python/{python version}/bin for me) (see nate or google for help)(you'll also have to add 'export PATH=~/Library/Python/{python version}/bin:$PATH' to your ~/.bash_profile if you have to do this step)
-2. configure aws cli (if you haven't done it yet)
-    * go to aws in browser
-    * go to IAM
-    * create access keys for your user
-    * go to terminal
-    * execute `aws configure`
-    * enter access key and secret access key
-    * enter 'us-east-1' for default region (don't listen to nate)
-    * i like 'json' as the default output
-3. run `./setup.sh`
-    * this creates symlinks in the /usr/local/bin directory which should be accessible on your path
-
 Updating
-========
+--------
 1. `git pull`
-2. `./setup.sh`
-3. updated!
+2. `npm run setup`
+3. Maybe restart terminal
+4. updated!
+
+Using
+-----
+- run `cli list` to output available tools and brief description
+- other commands should have `help` option
+- Enjoy!
 
 Using Session
 =============
