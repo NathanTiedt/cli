@@ -10,6 +10,3 @@ if [ ! -d "$DIRECTORY" ]; then
   mkdir ~/.node_modules  # needed for user object for bitbucket
 fi
 
-if ! which pip; then
-  echo "No Pip!"
-fi
