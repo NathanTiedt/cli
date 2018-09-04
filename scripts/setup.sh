@@ -13,7 +13,7 @@ INSTRUCTIONS=(""
 "")
 
 function setupSession () {
-  if [[ ! -f ~/.aws/mfa_arn ]] || [[ ! $(cat ~/.aws/mfa) ]]; then
+  if [[ ! -f ~/.aws/mfa_arn ]] || [[ ! $(cat ~/.aws/mfa_arn) ]]; then
     scripts/aws_session init
     printf "%s\n" "${INSTRUCTIONS[@]}"
     read -n 1 -s -r -p "Get MFA Device ARN and Press Any Key to Continue"
