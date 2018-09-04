@@ -6,8 +6,8 @@ Command line tools for RZ Developers
 Installation
 ------------
 The command line tools need to be symlinked and aws installed and configured.
-- FIRST: run `npm run setup:aws` from the main directory
-- SECOND: run `npm run setup` from the main directory
+    - FIRST: run `npm run setup:aws` from the main directory
+    - SECOND: run `npm run setup` from the main directory
 
 Individual command line tools might need their own setup
 
