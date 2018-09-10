@@ -16,14 +16,16 @@ help=(""
 "Accepts certain psql arguments"
 "Current Options:"
 ""
-"-d <dbname>  connects to a different db. NOT hostname"
-"             this is used to grep .pgpass for host"
-"-f <file>    executes following sql file"
-"             outputs return to stdout (usually console)"
-"-c <file>    executes following sql command"
-"             outputs return to stdout (usually console)"
-"-u <user>    use following user instead of default"
-"             default is rzpostgres"
+"-d <dbname>            connects to a different db. NOT hostname"
+"                       this is used to grep .pgpass for host"
+"-f <file>              executes following sql file"
+"                       outputs return to stdout (usually console)"
+"-c <file>              executes following sql command"
+"                       outputs return to stdout (usually console)"
+"-u <user>              use following user instead of default"
+"                       default is rzpostgres"
+"-v <var_name>=<value>  allows you to pass in a variable"
+"                       example: `-v row_id=\"471\"`"
 "")
 
 # Global Variables
@@ -80,6 +82,13 @@ function parseArgs () {
       -u)
         shift
         user="$1"
+        shift
+        ;;
+      # add a variable value to execution
+      # form `-v var_name="value"`
+      -v)
+        shift
+        extra="$extra -v $1"
         shift
         ;;
       # output the help menu
