@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+##           GENERAL INFO
+#  creates a temporary session with AWS when MFA is forced
+#  stores the temp session in three environement variables that override the main aws config file
+#  also stores three export commands in a file to be run everytime the .bash_profile is run
+#  temp sessions expire after 1 day
+## 
+
 usage=(""
 "Session commands: "
 ""
@@ -8,7 +15,7 @@ usage=(""
 " source session clear"
 "   - removes a temporary session from environment variables and temp file"
 ""
-"Setup commands:"
+"Initialization commands:"
 ""
 " aws_session init"
 "   - must be run before any other commands"
@@ -17,12 +24,6 @@ usage=(""
 "")
 
 
-##           GENERAL INFO
-#  creates a temporary session with AWS when MFA is forced
-#  stores the temp session in three environement variables that override the main aws config file
-#  also stores three export commands in a file to be run everytime the .bash_profile is run
-#  temp sessions expire after 1 day
-## 
 
 
 ## checks whether the session was set successfully

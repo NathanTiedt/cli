@@ -7,7 +7,7 @@
 ##
 
 help=(""
-"SCript to Query AWS for Ec2 ip addresses"
+"Script to Query AWS for Ec2 ip addresses"
 "Stores them under hostnames for ssh commands"
 ""
 "Options:"
