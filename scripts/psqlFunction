@@ -25,7 +25,7 @@ help=(""
 "-u <user>              use following user instead of default"
 "                       default is rzpostgres"
 "-v <var_name>=<value>  allows you to pass in a variable"
-"                       example: `-v row_id=\"471\"`"
+"                       example: '-v row_id=\"471\"'"
 "")
 
 # Global Variables
