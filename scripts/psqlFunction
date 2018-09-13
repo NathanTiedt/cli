@@ -25,7 +25,7 @@ help=(""
 "-u <user>              use following user instead of default"
 "                       default is rzpostgres"
 "-v <var_name>=<value>  allows you to pass in a variable"
-"                       example: `-v row_id=\"471\"`"
+"                       example: \'-v row_id=\"471\"\'"
 "")
 
 # Global Variables
@@ -39,7 +39,7 @@ user=rzpostgres
 #
 ##
 function getHost () {
-  host=$(cat ~/.pgpass | grep -i "$database" | grep -i "$env" | head -1 | cut -d':' -f1)
+  host=$(cat ~/.pgpass | grep -i "pg-$database" | grep -i "$env" | head -1 | cut -d':' -f1)
   echo "Connecting to $host"
 }
 
