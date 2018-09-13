@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 branch=$1
-echo $branch
 if [[ ! -z "$branch" ]]; then
   if [[ $(git branch --all | grep "$branch") ]]; then
     git checkout $branch
