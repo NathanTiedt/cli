@@ -1,5 +1,25 @@
 #!/usr/bin/env bash
 
+
+
+###########################################################################
+##                      MAIN CONTROL LOOP                                ##
+###########################################################################
+# if there's only one arg, just use as commit message
 if [ $# -eq 1 ]; then
   git commit -am "$1"
+  exit 0
 fi
+
+EXTRAS=""
+END="-am"
+# check other args
+while test $# -gt 1; do
+  case $1 in
+    -a|--amend)
+      END="--amend --no-edit"
+      shift
+      ;;
+  esac
+done
+git commit $EXTRAS $END $1
