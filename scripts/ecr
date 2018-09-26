@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+HELP=(""
+"Tags and Pushes Docker Images to ECR"
+"Options:"
+""
+"help"
+"login"
+"push"
+"tag"
+"")
+
+ECS_ACCOUNT="512545106716.dkr.ecr.us-east-1.amazonaws.com/"
+function login () {
+  $(aws ecr get-login --no-include-email)
+}
+
+function push () {
+  docker push "${ECS_ACCOUNT}$1:${2:-latest}"
+}
+
+function tag () {
+  docker tag "$1:${2:-latest}" "${ECS_ACCOUNT}$1:${2:-latest}"
+}
+
+##########################################################
+####                   MAIN CONTROL                   ####
+##########################################################
+case "$1" in
+  help)
+    printf "%s\n" "${HELP[@]}"
+    ;;
+  login)
+    shift # eat the arg just in case
+    login
+    ;;
+  push)
+    shift
+    login
+    tag $1 $2
+    push $1 $2
+    shift; shift # eat the args just in case
+    ;;
+  tag)
+    shift
+    tag $1 $2
+    shift; shift # eat the args just in case
+    ;;
+  *)
+    echo "Not and accepted option with ECR"
+    printf "%s\n" "${HELP[@]}"
+esac

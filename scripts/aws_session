@@ -10,9 +10,11 @@
 usage=(""
 "Session commands: "
 ""
-" source session <MFA_Token>"
+" session <MFA_Token>"
 "   - creates a new temporary session and stores the session info"
-" source session clear"
+" session -l <MFA_Token>"
+"   - creates new temporary session but does not seed ip addresses"
+" session clear"
 "   - removes a temporary session from environment variables and temp file"
 ""
 "Initialization commands:"
@@ -123,6 +125,12 @@ else
       # needed to create a new session since temp sessions can't make a new temp session
       unsetSession
       echo "Session variables unset"
+      ;;
+    -l|--login)
+      shift
+      unsetSession
+      createSession $1
+      checkSuccess
       ;;
     usage|man|help)
       # print out usage options
