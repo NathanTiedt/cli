@@ -16,7 +16,7 @@ function login () {
 }
 
 function push () {
-  docker push "${ECS_ACCOUNT}$1:${2:-latest}"
+  docker push "${ECS_ACCOUNT}$1:${2-latest}"
 }
 
 function tag () {
