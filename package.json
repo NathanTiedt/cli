@@ -9,6 +9,7 @@
     "checkout": "./scripts/checkout",
     "cli": "./scripts/cli",
     "commit": "./scripts/commit",
+    "compose": "./scripts/compose",
     "dev": "./scripts/dev",
     "ecr": "./scripts/ecr",
     "feature": "./src/bit/bit-feature",
