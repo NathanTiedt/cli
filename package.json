@@ -6,6 +6,7 @@
   "bin": {
     "bit": "./src/bit/bit",
     "build": "./scripts/build",
+    "cd_apps": "./scripts/apps",
     "checkout": "./scripts/checkout",
     "cli": "./scripts/cli",
     "commit": "./scripts/commit",

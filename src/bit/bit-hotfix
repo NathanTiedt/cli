@@ -4,34 +4,50 @@ const { git, cloud } = require('./js');
 const program = require('commander');
 
 program
-  .option('s, start <name>', 'creates a new hotfix branch')
-  .option('e, end <name>', 'ends a hotfix branch')
-  .option('delete <name>', 'deletes a branch')
+  .arguments('<cmd> <branch>')
+  .action(action)
   .parse(process.argv);
 
-if (program.hasOwnProperty('start')) {
+branch = `hotfix/${branch}`;
+if (startHotfix()) {
   start();
-} else if (program.hasOwnProperty('end')) {
+} else if (finishHotfix()) {
   finish();
 } else if (program.hasOwnProperty('delete')) {
   removeBranch();
 }
 
+function action ( cmd, brch ){
+  command = cmd;
+  branch = brch;
+}
+
 function removeBranch () {
-  git.deleteBranch(`hotfix/${program.delete}`);
+  git.deleteBranch(branch);
 }
 
 function start () {
   git.checkout('master');
   git.pull();
-  git.checkout(`hotfix/${program.start}`, '-b');
-  git.publish(`hotfix/${program.start}`);
+  git.checkout(branch);
+  git.publish(branch);
 }
 
 function finish () {
-  git.checkout(`hotfix/${program.end}`);
-  git.commit(`${program.end} hotfix finish`);
+  git.checkout(branch);
+  git.commit(`${branch} hotfix finish`);
   git.push();
-  git.tag(`${program.end}`);
-  git.createPullRequest(`hotfix/${program.end}`, `master`);
+  git.tag(branch);
+  git.createPullRequest(branch, `master`);
+}
+
+function finishHotfix () {
+  return command == 'end'
+      || command == 'finish'
+      || command == 'close';
+}
+
+function startHotfix () {
+  return command == 'begin'
+      || command == 'start';
 }
