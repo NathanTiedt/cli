@@ -6,7 +6,7 @@
   "bin": {
     "bit": "./src/bit/bit",
     "build": "./scripts/build",
-    "cd_apps": "./scripts/apps",
+    "cd_apps": "./scripts/cd_apps",
     "checkout": "./scripts/checkout",
     "cli": "./scripts/cli",
     "commit": "./scripts/commit",
@@ -22,6 +22,8 @@
     "pull": "./scripts/pull",
     "push": "./scripts/push",
     "release": "./src/bit/bit-release",
+    "se": "./scripts/search",
+    "search": "./scripts/search",
     "session": "./scripts/aws_session",
     "stage": "./scripts/stage"
   },

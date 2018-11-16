@@ -7,6 +7,7 @@
 ## brew install tmux
 ## brew install telnet
 ## brew install jq
+## npm install -g taskbook
 
 alias apps='source cd_apps'
 alias repos='cd ~/apps'
