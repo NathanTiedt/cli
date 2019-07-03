@@ -9,6 +9,8 @@
 ## brew install jq
 ## npm install -g taskbook
 ## brew install fzf
+## mkdir -p ~/.vim/autoload ~/.vim/bundle && \
+####  curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
 alias apps='source cd_apps'
 alias repos='cd ~/apps'
