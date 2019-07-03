@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+build_extras=''
+file='-f docker-compose.yml'
+up_extras='--no-build'
+
+function parseArgs () {
+  while test $# -gt 0; do
+    case $1 in
+      --dev|--development)
+        shift
+        file="$file -f conf/docker-compose.dev.yml"
+        ;;
+      --env)
+        shift
+        file="$file -f conf/docker-compose.$1.yml"
+        shift
+        ;;
+      --prod|--production)
+        shift
+        file="$file -f conf/docker-compose.prod.yml"
+        ;;
+      --ssh)
+        shift
+        build_extras="$build_extras --build-arg SSH_KEY=\"$(cat ~/.ssh/id_rsa)\""
+        ;;
+      --stage|--staging)
+        shift
+        file="$file -f conf/docker-compose.stage.yml"
+        ;;
+    esac
+  done
+}
+
+###########################################################################
+##                      MAIN CONTROL LOOP                                ##
+###########################################################################
+parseArgs $@
+#build
+docker-compose $file build $build_extras \
+  && docker-compose $file up $up_extras

@@ -9,12 +9,12 @@ program
   .option('delete <name>', 'deletes a branch')
   .parse(process.argv);
 
-if (program.hasOwnProperty('start')) {
+if (startFeature(program)) {
   start();
-} else if (program.hasOwnProperty('end')) {
+} else if (finishFeature(program)) {
   finish();
 } else if (program.hasOwnProperty('delete')) {
-  deleteBranch();
+  removeBranch();
 }
 
 function removeBranch () {
@@ -33,4 +33,15 @@ function finish () {
   git.commit(`${program.end} feature finish`);
   git.push();
   git.createPullRequest(`feature/${program.end}`, `develop`);
+}
+
+function finishFeature ( program ) {
+  return program.hasOwnProperty('end')
+      || program.hasOwnProperty('finish')
+      || program.hasOwnProperty('close');
+}
+
+function startFeature ( program ) {
+  return program.hasOwnProperty('start')
+      || program.hasOwnProperty('begin');
 }

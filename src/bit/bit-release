@@ -9,9 +9,9 @@ program
   .option('delete <name>', 'deletes a branch')
   .parse(process.argv);
 
-if (program.hasOwnProperty('start')) {
+if (startRelease()) {
   start();
-} else if (program.hasOwnProperty('end')) {
+} else if (finishRelease()) {
   finish();
 } else if (program.hasOwnProperty('delete')) {
   removeBranch();
@@ -35,4 +35,15 @@ function finish () {
   git.tag(`${program.end}`);
   git.createPullRequest(`release/${program.end}`, `develop`);
   git.createPullRequest(`release/${program.end}`, `master`);
+}
+
+function finishRelease () {
+  return program.hasOwnProperty('end')
+      || program.hasOwnProperty('finish')
+      || program.hasOwnProperty('close');
+}
+
+function startRelease () {
+  return program.hasOwnProperty('start')
+      || program.hasOwnProperty('begin');
 }

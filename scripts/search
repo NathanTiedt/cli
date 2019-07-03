@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+files=''
+indexOfFile=''
+
+function findAll () {
+  files=( $(ack -l "$1" | tr '\n' ' ' ) )
+  #parseFiles
+}
+
+function parseFiles () {
+  IFS='\n' read -r -a parsed <<< "$files"
+  echo $parsed
+  files=$parsed
+}
+
+function printFiles () {
+  echo ""
+  for i in "${!files[@]}"; do
+    printf "%s\t%s\n" "$i" "${files[$i]}"
+  done
+  echo ""
+}
+
+function askForChoice () {
+  read -p 'Which File to Vim?  ' indexOfFile
+}
+
+function openFile () {
+  vim "${files[$indexOfFile]}"
+}
+
+###########################################################################
+##                      MAIN CONTROL LOOP                                ##
+###########################################################################
+if [[ -z "$1" ]]; then
+  # nothing passed in
+  echo 'need to pass in something'
+  exit 1
+fi
+
+findAll $1
+printFiles
+askForChoice
+openFile
+

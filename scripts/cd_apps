@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+help=(""
+"Quick jump to a project directory."
+"Takes one or none arguments for project to jump to"
+"This script needs to be sourced to switch directories"
+""
+"Examples:"
+"apps         cd's to app directory"
+"apps <proj>  cd's to project directory in app dir"
+"")
+
+# script variables
+appsDir=~/apps/
+
+##
+# finds top matching directory within the appsDir
+#
+# @function
+# 
+# @param {string} $1 - substring of project name
+#
+# @returns {string} - either matching directory name or "No Projects Found"
+##
+function findDirs () {
+  dir="$( find $appsDir -type d -maxdepth 1 -name "*$1*" | head -1 )"
+  echo $dir
+  if [[ -z "$dir" ]]; then
+    echo "No Projects Found"
+  else
+    echo "$dir"
+  fi
+}
+
+##
+# safely switches to directory of project
+#
+# @function
+#
+# @param {string} $1 - directory name of project or "No Projects Found"
+##
+function switchDirs () {
+  if [ "$1" = "No Projects Found" ]; then
+    cd $appsDir
+  else
+    cd $1 
+  fi
+}
+
+
+###########################################################################
+##                      MAIN CONTROL LOOP                                ##
+###########################################################################
+if [[ -z "$1" ]]; then
+  # nothing passed in. go to base directory
+  cd $appsDir
+else
+  proj="$(findDirs $1)"
+  switchDirs "$proj"
+fi
