@@ -8,6 +8,7 @@
 ## brew install telnet
 ## brew install jq
 ## npm install -g taskbook
+## brew install fzf
 
 alias apps='source cd_apps'
 alias repos='cd ~/apps'
