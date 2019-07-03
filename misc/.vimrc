@@ -1,4 +1,5 @@
 " git clone https://github.com/w0rp/ale.git
+" git submodule add https://github.com/flazz/vim-colorschemes.git ~/.vim/bundle/colorschemes
 " git clone https://github.com/itchyny/lightline.vim ~/.vim/bundle/lightline.vim
 execute pathogen#infect()
 syntax on
