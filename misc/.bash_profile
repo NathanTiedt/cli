@@ -1,14 +1,6 @@
-## brew install ack
+## brew install thefuck nnn git-flow tmux telnet jq fzf ack htop
     ## ack --create-ackrc >> ~/.ackrc
-## brew install htop
-## brew install thefuck
-## brew install nnn
-## brew install git-flow
-## brew install tmux
-## brew install telnet
-## brew install jq
 ## npm install -g taskbook
-## brew install fzf
 ## mkdir -p ~/.vim/autoload ~/.vim/bundle && \
 ####  curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
