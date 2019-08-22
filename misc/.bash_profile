@@ -1,4 +1,4 @@
-## brew install thefuck nnn git-flow tmux telnet jq fzf ack htop
+## brew install thefuck nnn git-flow tmux telnet jq fzf ack htop tig
     ## ack --create-ackrc >> ~/.ackrc
 ## npm install -g taskbook
 ## mkdir -p ~/.vim/autoload ~/.vim/bundle && \
