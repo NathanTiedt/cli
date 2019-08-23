@@ -1,6 +1,6 @@
 /**
  *
  */
-export interface FILENAME {
+export interface INTERFACE_NAME {
 
 }

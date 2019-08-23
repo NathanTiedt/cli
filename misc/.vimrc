@@ -114,14 +114,10 @@ function! NewFile()
   silent! execute '0r ~/.vim/templates/skeleton.'.expand("<afile>:e")
   s/FILENAME/\=expand("%:t:r")
 endfunction
-function! ReadFile()
-  s/FILENAME/\=expand("%:t:r")
-endfunction
 
 if has("autocmd")
   augroup templates
     " generic templates
     autocmd BufNewFile *.* call NewFile()
-    autocmd BufRead *.* call ReadFile()
   augroup END
 endif

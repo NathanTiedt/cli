@@ -28,7 +28,7 @@
     "stage": "./scripts/stage"
   },
   "scripts": {
-    "copy": "cp -R misc/ ~/",
+    "copy": "cp -R misc/ ~/; source ~/.bash_profile",
     "setup": "./scripts/setup.sh; npm link",
     "setup:aws": "./scripts/setup_aws.sh",
     "test": "echo \"Error: no test specified\" && exit 1"

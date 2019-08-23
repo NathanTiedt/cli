@@ -1,4 +1,4 @@
-## brew install thefuck nnn git-flow tmux telnet jq fzf ack htop tig typescript terraform
+## brew install thefuck nnn git-flow tmux telnet jq fzf ack htop tig typescript terraform postgres docker
     ## ack --create-ackrc >> ~/.ackrc
 ## npm install -g taskbook gulp-cli
 ## mkdir -p ~/.vim/autoload ~/.vim/bundle && \
