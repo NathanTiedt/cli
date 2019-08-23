@@ -1,7 +1,7 @@
 /**
  *
  */
-export default class ClassName {
+export default class FILENAME {
 
   constructor() {}
 
