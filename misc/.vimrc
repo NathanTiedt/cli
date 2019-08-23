@@ -22,6 +22,7 @@ highlight LineNr ctermfg=grey
 let g:ale_lint_on_save = 1
 let g:javascript_plugin_jsdoc = 1
 let g:tmux_navigator_no_mappings = 1
+let $templates = '~/.vim/templates'
 
 colorscheme monokai
 set noshowmode
@@ -112,6 +113,8 @@ nnoremap <silent> <c-\> :TmuxNavigatePrevious<cr>
 
 if has("autocmd")
   augroup templates
-    autocmd BufNewFile *.sh 0r ~/.vim/templates/skeleton.sh
+    
+    " generic templates
+    autocmd BufNewFile *.ts 0r ~/.vim/templates/skeleton.ts
   augroup END
 endif
