@@ -110,11 +110,14 @@ nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
 nnoremap <silent> <c-\> :TmuxNavigatePrevious<cr>
 
 "" TEMPLATES ""
+function! NewFile() 
+  silent! execute '0r ~/.vim/templates/skeleton.'.expand("<afile>:e")
+  s/FILENAME/\=expand("%:t:r")
+endfunction
 
 if has("autocmd")
   augroup templates
-    
     " generic templates
-    autocmd BufNewFile *.ts 0r ~/.vim/templates/skeleton.ts
+    autocmd BufNewFile *.* call NewFile()
   augroup END
 endif
