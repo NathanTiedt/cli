@@ -1,6 +1,6 @@
-## brew install thefuck nnn git-flow tmux telnet jq fzf ack htop
+## brew install thefuck nnn git-flow tmux telnet jq fzf ack htop tig typescript terraform
     ## ack --create-ackrc >> ~/.ackrc
-## npm install -g taskbook
+## npm install -g taskbook gulp-cli
 ## mkdir -p ~/.vim/autoload ~/.vim/bundle && \
 ####  curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
@@ -19,10 +19,14 @@ alias docker-up='docker-compose up'
 alias puppet-pull="ssh -t 10.1.60.9 'cd /etc/puppetlabs/code/environments; sudo git pull'"
 alias tmux-dev='tmux new-session -s $(basename "$PWD") "tmux source-file ~/.tmux/dev-session"'
 alias tmux-single='tmux new-session -s $(basename "$PWD") "tmux source-file ~/.tmux/single-dev"'
+alias tmux-work='tmux new-session -s $(basename "$PWD") "tmux source-file ~/.tmux/work-station"'
 alias branch='git branch'
 alias create=createBranch
+alias status='tig status'
+alias blame='tig blame'
 alias ll='ls -laG'
 alias bp='source ~/.bash_profile'
+alias bpedit='vim ~/.bash_profile'
 alias pgpass='vim ~/.pgpass'
 export PATH=/Users/ntiedt/Library/Python/2.7/bin:$PATH
 export PATH=~/bin:$PATH
