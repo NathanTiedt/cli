@@ -3,6 +3,7 @@
 " git clone https://github.com/itchyny/lightline.vim ~/.vim/bundle/lightline.vim
 " git clone https://github.com/christoomey/vim-tmux-navigator.git ~/.vim/bundle/vim-tmux-navigator
 " git clone https://github.com/hashivim/vim-terraform.git ~/.vim/bundle/vim-terraform
+" git clone https://github.com/pangloss/vim-javascript.git ~/.vim/bundle/vim-javascript
 
 
 execute pathogen#infect()
@@ -112,7 +113,7 @@ nnoremap <silent> <c-\> :TmuxNavigatePrevious<cr>
 "" TEMPLATES ""
 function! NewFile() 
   silent! execute '0r ~/.vim/templates/skeleton.'.expand("<afile>:e")
-  s/FILENAME/\=expand("%:t:r")
+  silent! s/FILENAME/\=expand("%:t:r")
 endfunction
 
 if has("autocmd")
