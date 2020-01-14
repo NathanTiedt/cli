@@ -25,7 +25,7 @@ let g:javascript_plugin_jsdoc = 1
 let g:tmux_navigator_no_mappings = 1
 let $templates = '~/.vim/templates'
 
-colorscheme monokai
+colorscheme jellybeans
 set noshowmode
 set laststatus=2
 
@@ -58,6 +58,15 @@ nnoremap <leader>w :w<cr>
 " replace the word under cursor
 nnoremap <leader>s :%s/\<<c-r><c-w>\>//g<left><left>
 
+" find current word in file
+nnoremap <leader>f /<c-r><c-w><cr>
+
+" bring up ack
+nnoremap <leader>a :Ack ''<left>
+
+" no cut
+nnoremap <leader>d "_d
+xnoremap <leader>d "_d
 
 "" NAVIGATORS ""
 
@@ -75,6 +84,9 @@ nnoremap <leader>ph :Ve<cr>
 
 " open horizontal pane to the right
 nnoremap <leader>pl :Ve!<cr>
+
+" open finder in new split
+nnoremap <leader>p; :Hexplore \| :FZF<cr>
 
 
 "" FUZZY FINDER ""
@@ -95,6 +107,11 @@ nnoremap <leader>al :ALELint<cr>
 
 " toggle gutter
 nnoremap <leader>at :ALEToggle<cr>
+
+" paste from clipboard
+nnoremap <leader>v "*p
+" copy to clipboard
+nnoremap <leader>c "*y
 
 
 " autoclose tags
