@@ -17,6 +17,7 @@ set expandtab
 set autoindent
 set backspace=indent,start
 set rtp+=/usr/local/opt/fzf
+set tags=./.git/tags,.git/tags;$HOME
 
 highlight LineNr ctermfg=grey
 
