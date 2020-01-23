@@ -4,4 +4,6 @@
 --exclude=node_modules/*
 --exclude=db/*
 --exclude=log/*
+--exclude=build/*
+--exclude=dist/*
 -f .git/tags
