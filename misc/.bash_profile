@@ -1,4 +1,4 @@
-## brew install thefuck nnn git-flow tmux telnet jq fzf ack htop tig typescript terraform postgres docker
+## brew install thefuck nnn git-flow tmux telnet jq fzf ack htop tig typescript terraform postgres docker ctags
     ## ack --create-ackrc >> ~/.ackrc
 ## npm install -g taskbook gulp-cli
 ## mkdir -p ~/.vim/autoload ~/.vim/bundle && \
@@ -28,6 +28,8 @@ alias ll='ls -laG'
 alias bp='source ~/.bash_profile'
 alias bpedit='vim ~/.bash_profile'
 alias pgpass='vim ~/.pgpass'
+alias ctags='/usr/local/bin/ctags'
+alias tags='ctags -R -f ./.git/tags .'
 export PATH=/Users/ntiedt/Library/Python/2.7/bin:$PATH
 export PATH=~/bin:$PATH
 
