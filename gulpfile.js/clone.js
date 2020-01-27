@@ -1,18 +1,31 @@
 
-const { series } = require('gulp');
+const { series, src, symlink } = require('gulp');
 const git = require('gulp-git');
 const HOME_DIR = require('os').homedir();
 const fs = require('fs');
 
 function callback(err) {
-  if (err) console.log(err);
+  if (err) console.error(err);
 }
 
-function ale() {
-  if (fs.existsSync(`${HOME_DIR}/.vim/bundle/ale`)) return Promise.resolve('All good');
-  return git.clone('https://github.com/w0rp/ale', {args: `.vim/bundle/ale`, cwd: `${HOME_DIR}/`}, callback);
+function cloneVimFiles() {
+  if (fs.existsSync(`${HOME_DIR}/nate/.vim`)) return Promise.resolve('All Good');
+  return git.clone('https://github.com/NathanTiedt/vim-files.git', { args: `.vim/`, cwd: `${HOME_DIR}/nate/` }, callback);
+}
+
+function updateSubModules() {
+  if (!fs.existsSync(`${HOME_DIR}/nate/.vim`)) return Promise.resolve('All Good');
+  return git.updateSubmodule({ args: '--init', cwd: `${HOME_DIR}/nate/.vim/` });
+}
+
+function symlinkVimRc() {
+  if (fs.existsSync(`${HOME_DIR}/nate/.vimrc`)) return Promise.resolve('All Good');
+  return src(`${HOME_DIR}/nate/.vim/.vimrc`)
+    .pipe(symlink(`${HOME_DIR}/nate/`));
 }
 
 module.exports = series(
-  ale
+  cloneVimFiles,
+  updateSubModules,
+  symlinkVimRc
 );
