@@ -1,4 +1,12 @@
 
-exports.brew = require('./brew');
-exports.clone = require('./clone');
-exports.copy = require('./copy');
+const { series } = require('gulp');
+const clone = require('./clone');
+const copy = require('./copy');
+
+exports.clone = clone;
+exports.copy = copy;
+
+exports.setup = series(
+  clone,
+  copy
+);
