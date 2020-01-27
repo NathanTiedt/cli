@@ -1,0 +1,5 @@
+# tmux session for git and terminal window
+new
+neww
+splitw -h -p 35
+selectp -t 0

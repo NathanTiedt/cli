@@ -1,15 +1,9 @@
-## brew install ack
+## brew install thefuck nnn git-flow tmux telnet jq fzf ack htop tig typescript terraform postgres docker ctags
     ## ack --create-ackrc >> ~/.ackrc
-## brew install htop
-## brew install thefuck
-## brew install nnn
-## brew install git-flow
-## brew install tmux
-## brew install telnet
-## brew install tig
-## brew install jq
-## brew install ctags; alias ctags="`brew --prefix`/usr/local/bin/ctags"
-## npm install -g taskbook
+    ## alias ctags="`brew --prefix`/usr/local/bin/ctags"
+## npm install -g taskbook gulp-cli
+## mkdir -p ~/.vim/autoload ~/.vim/bundle && \
+####  curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
 alias apps='source cd_apps'
 alias repos='cd ~/apps'
@@ -32,12 +26,17 @@ alias puppet-pull="ssh -t 10.1.60.9 'cd /etc/puppetlabs/code/environments; sudo 
 alias tags='ctags -R -f .git/tags .'
 alias tmux-dev='tmux new-session -s $(basename "$PWD") "tmux source-file ~/.tmux/dev-session"'
 alias tmux-single='tmux new-session -s $(basename "$PWD") "tmux source-file ~/.tmux/single-dev"'
+alias tmux-work='tmux new-session -s $(basename "$PWD") "tmux source-file ~/.tmux/work-station"'
 alias branch='git branch'
 alias create=createBranch
+alias status='tig status'
+alias blame='tig blame'
 alias ll='ls -laG'
 alias bp='source ~/.bash_profile'
 alias bpedit='vim ~/.bash_profile'
 alias pgpass='vim ~/.pgpass'
+alias ctags='/usr/local/bin/ctags'
+alias tags='ctags -R -f ./.git/tags .'
 export PATH=/Users/ntiedt/Library/Python/2.7/bin:$PATH
 export PATH=~/bin:$PATH
 

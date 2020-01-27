@@ -28,6 +28,7 @@
     "stage": "./scripts/stage"
   },
   "scripts": {
+    "copy": "cp -R misc/ ~/; source ~/.bash_profile",
     "setup": "./scripts/setup.sh; npm link",
     "setup:aws": "./scripts/setup_aws.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -45,6 +46,7 @@
   "dependencies": {
     "chalk": "^2.4.1",
     "commander": "^2.17.0",
+    "gulp": "^4.0.2",
     "shelljs": "^0.8.2",
     "superagent": "^3.8.3"
   }
