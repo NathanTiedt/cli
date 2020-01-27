@@ -1,4 +1,4 @@
-" git clone https://github.com/w0rp/ale.git
+" git clone https://github.com/w0rp/ale ~/.vim/bundle/ale
 " git submodule add https://github.com/flazz/vim-colorschemes.git ~/.vim/bundle/colorschemes
 " git clone https://github.com/itchyny/lightline.vim ~/.vim/bundle/lightline.vim
 " git clone https://github.com/christoomey/vim-tmux-navigator.git ~/.vim/bundle/vim-tmux-navigator
