@@ -29,6 +29,3 @@ brew install ctags
 
 npm install -g taskbook gulp-cli
 echo "Finished Installations..."
-
-echo "Starting Settings Creation..."
-ack --create-ackrc >> ~/.ackrc
