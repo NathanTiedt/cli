@@ -4,12 +4,14 @@
 " git clone https://github.com/christoomey/vim-tmux-navigator.git ~/.vim/bundle/vim-tmux-navigator
 " git clone https://github.com/hashivim/vim-terraform.git ~/.vim/bundle/vim-terraform
 " git clone https://github.com/pangloss/vim-javascript.git ~/.vim/bundle/vim-javascript
+" git clone https://github.com/majutsushi/tagbar ~/.vim/bundle/tagbar
 
 
 execute pathogen#infect()
 syntax on
 filetype plugin indent on
 
+let g:elite_mode=1
 set number relativenumber
 set tabstop=2
 set shiftwidth=2
@@ -113,6 +115,8 @@ nnoremap <leader>at :ALEToggle<cr>
 nnoremap <leader>v "*p
 " copy to clipboard
 nnoremap <leader>c "*y
+" Toggle Tagbar
+nnoremap <leader>t :TagbarToggle<cr>
 
 
 " autoclose tags
@@ -127,6 +131,14 @@ nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
 nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
 nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
 nnoremap <silent> <c-\> :TmuxNavigatePrevious<cr>
+
+" Disable arrow movement, resize splits instead.
+if get(g:, 'elite_mode')
+    nnoremap <Up>    :resize +2<CR>
+    nnoremap <Down>  :resize -2<CR>
+    nnoremap <Left>  :vertical resize +2<CR>
+    nnoremap <Right> :vertical resize -2<CR>
+endif
 
 "" TEMPLATES ""
 function! NewFile() 
