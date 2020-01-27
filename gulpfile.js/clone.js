@@ -9,7 +9,8 @@ function callback(err) {
 }
 
 function cloneVimFiles() {
-  if (fs.existsSync(`${HOME_DIR}/nate/.vim`)) return Promise.resolve('All Good');
+  if (fs.existsSync(`${HOME_DIR}/nate/.vim`)) 
+    return git.pull({ cwd: `${HOME_DIR}/nate/.vim` }, callback);
   return git.clone('https://github.com/NathanTiedt/vim-files.git', { args: `.vim/`, cwd: `${HOME_DIR}/nate/` }, callback);
 }
 
