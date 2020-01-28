@@ -1,14 +1,17 @@
 #!/usr/bin/env bash
 
 echo "Installing brew..."
+
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 echo "Tapping Casks..."
+
 brew tap aws/tap
 brew tap homebrew/cask
 brew tap homebrew/core
 
 echo "STarting Installations..."
+
 # General Installs
 brew install node
 brew install thefuck 
@@ -28,4 +31,11 @@ brew install docker
 brew install ctags
 
 npm install -g taskbook gulp-cli
+
 echo "Finished Installations..."
+
+echo "Starting Config..."
+
+git config --global init.templatedir '~/.git-templates'
+
+echo "Finished Config..."
