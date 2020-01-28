@@ -7,4 +7,5 @@
 --exclude=log/*
 --exclude=build/*
 --exclude=dist/*
+--exclude=.terraform/*
 -f .git/tags
