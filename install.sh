@@ -29,6 +29,9 @@ brew install terraform
 brew install postgres 
 brew install docker 
 brew install ctags
+brew install python3
+brew link --overwrite python3
+brew install azure-cli
 
 npm install -g taskbook gulp-cli
 
