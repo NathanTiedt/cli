@@ -29,7 +29,6 @@ alias tmux-single='tmux new-session -s $(basename "$PWD") "tmux source-file ~/.t
 alias tmux-work='tmux new-session -s $(basename "$PWD") "tmux source-file ~/.tmux/work-station"'
 alias tmux='tmux-work'
 alias branch='git branch'
-alias create=createBranch
 alias status='tig status'
 alias blame='tig blame'
 alias ll='ls -laG'
