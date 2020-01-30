@@ -27,6 +27,7 @@ alias tags='ctags -R -f .git/tags .'
 alias tmux-dev='tmux new-session -s $(basename "$PWD") "tmux source-file ~/.tmux/dev-session"'
 alias tmux-single='tmux new-session -s $(basename "$PWD") "tmux source-file ~/.tmux/single-dev"'
 alias tmux-work='tmux new-session -s $(basename "$PWD") "tmux source-file ~/.tmux/work-station"'
+alias tmux='tmux-work'
 alias branch='git branch'
 alias create=createBranch
 alias status='tig status'
