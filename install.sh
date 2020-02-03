@@ -27,6 +27,7 @@ brew install tig
 brew install typescript 
 brew install terraform 
 brew install postgres 
+brew install checkstyle
 brew install docker 
 brew install ctags
 brew install python3
