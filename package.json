@@ -1,7 +1,7 @@
 {
-  "name": "rz_cli",
+  "name": "cli",
   "version": "1.2.0",
-  "description": "set of command line tools for Redzone",
+  "description": "set of command line tools for people",
   "main": "src/index.js",
   "bin": {
     "bit": "./src/bit/bit",
@@ -29,20 +29,20 @@
   },
   "scripts": {
     "copy": "cp -R misc/ ~/; source ~/.bash_profile",
-    "setup": "./scripts/setup.sh; gulp setup; ./install.sh; npm link",
+    "setup": "npm install; gulp setup; ./install.sh; npm link",
     "setup:aws": "./scripts/setup_aws.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/redzoneco/rz_cli.git"
+    "url": "git@github.com:NathanTiedt/cli.git"
   },
   "keywords": [
     "cli"
   ],
   "author": "Nate Tiedt",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/redzoneco/rz_cli#readme",
+  "homepage": "https://github.com/NathanTiedt/cli",
   "dependencies": {
     "chalk": "^2.4.1",
     "commander": "^2.17.0",
