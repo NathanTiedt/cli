@@ -1,13 +1,17 @@
 
-RZ CLI
+CLI
 ======
-Command line tools for RZ Developers
+Command line tools for Developers
 
 Installation
 ------------
-The command line tools need to be symlinked and aws installed and configured.
-    - FIRST: run `npm run setup:aws` from the main directory
-    - SECOND: run `npm run setup` from the main directory
+1. clone the repo: `git@github.com:NathanTiedt/cli.git`
+1. to install base package, run `npm run setup` from base directory. This will:
+    1. run npm install for dependecies
+    1. clone all vim related files from related repo
+    1. copy over hidden rc files to your home directory
+    1. link all scripts to command line names (see package.json::bin)
+1. if you want the aws ip tool, run `npm run setup:aws`
 
 Individual command line tools might need their own setup
 
