@@ -3,3 +3,7 @@
 if [ -f pom.xml ]; then
   mvn package
 fi
+
+if [ -f package.json ]; then
+  npm run build
+fi
