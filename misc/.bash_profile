@@ -40,6 +40,8 @@ alias tags='ctags -R -f ./.git/tags .'
 export PATH=/Users/ntiedt/Library/Python/2.7/bin:$PATH
 export PATH=~/bin:$PATH
 
+set -o vi
+
 eval $(thefuck --alias)
 
 export TERM=xterm-256color
