@@ -10,7 +10,7 @@ brew tap aws/tap
 brew tap homebrew/cask
 brew tap homebrew/core
 
-echo "STarting Installations..."
+echo "Starting Installations..."
 
 # General Installs
 brew install node
