@@ -1,4 +1,13 @@
 
+function cl() {
+    DIR="$*";
+        # if no DIR given, go home
+        if [ $# -lt 1 ]; then
+            DIR=$HOME;
+        fi;
+    cd "${DIR}" && ll
+}
+
 extract () {
   if [ -z "$1" ]; then
     # display usage if no parameters given
