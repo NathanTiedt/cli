@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
-echo "Installing brew..."
-
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+if hash brew 2>/dev/null; then
+  echo "Installing brew..."
+  #/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
 
 echo "Tapping Casks..."
 
