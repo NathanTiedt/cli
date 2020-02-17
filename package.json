@@ -29,7 +29,7 @@
   },
   "scripts": {
     "copy": "cp -R misc/ ~/; source ~/.bash_profile",
-    "setup": "npm install; gulp setup; ./install.sh; npm link",
+    "setup": "npm install; gulp setup; source ~/.bash_profile; ./install.sh; npm link",
     "setup:aws": "./scripts/setup_aws.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
