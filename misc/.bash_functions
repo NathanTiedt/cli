@@ -5,7 +5,7 @@ function cl() {
         if [ $# -lt 1 ]; then
             DIR=$HOME;
         fi;
-    cd "${DIR}" && ll
+    cd "${DIR}" && ls -laGh
 }
 
 extract () {
