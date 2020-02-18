@@ -35,6 +35,7 @@ brew install python3
 brew link --overwrite python3
 brew install azure-cli
 brew install awscli
+brew cask install dotnet
 
 npm install -g taskbook gulp-cli
 
