@@ -4,3 +4,4 @@
 - create compress command that receives files and a compression format
 - add more protections against overwriting/erroring
 - fix readme
+- Tmux workstation file didn't copy

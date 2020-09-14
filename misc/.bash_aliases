@@ -19,6 +19,7 @@ alias docker-clean:volumes='docker volume rm $(docker volume ls -qf dangling=tru
 alias docker-down='docker-compose down -v'
 alias docker-up='docker-compose up'
 alias down=docker-down
+alias e='vim .'
 alias gb='cd `git rev-parse --show-toplevel`'
 alias hist='history | grep'
 alias ll='ls -lAGh'
@@ -30,7 +31,7 @@ alias puppet-pull="ssh -t 10.1.60.9 'cd /etc/puppetlabs/code/environments; sudo 
 alias repos='cd ~/apps'
 alias status='tig status'
 alias tags='ctags -R -f .git/tags .'
-alias tmux='tmux-work'
+alias tx='tmux-work'
 alias tmux-dev='tmux new-session -s $(basename "$PWD") "tmux source-file ~/.tmux/dev-session"'
 alias tmux-single='tmux new-session -s $(basename "$PWD") "tmux source-file ~/.tmux/single-dev"'
 alias tmux-work='tmux new-session -s $(basename "$PWD") "tmux source-file ~/.tmux/work-station"'

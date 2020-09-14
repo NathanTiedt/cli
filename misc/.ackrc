@@ -214,6 +214,8 @@
 
 # C#
 --type-add=csharp:ext:cs
+--ignore-dir=is:obj
+--ignore-dir=is:bin
 
 # CSS
 # http://www.w3.org/Style/CSS/

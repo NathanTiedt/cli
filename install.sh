@@ -10,6 +10,7 @@ echo "Tapping Casks..."
 brew tap aws/tap
 brew tap homebrew/cask
 brew tap homebrew/core
+brew tap azure/functions
 
 echo "Starting Installations..."
 
@@ -34,6 +35,7 @@ brew install ctags
 brew install python3
 brew link --overwrite python3
 brew install azure-cli
+brew install azure-functions-core-tools@3
 brew install awscli
 brew cask install dotnet-sdk
 

@@ -2,6 +2,7 @@
 
 branch=$1
 if [[ ! -z "$branch" ]]; then
+  git fetch
   if [[ $(git branch --all | grep "$branch") ]]; then
     git checkout $branch
     git pull
