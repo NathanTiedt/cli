@@ -15,6 +15,7 @@ brew tap azure/functions
 echo "Starting Installations..."
 
 # General Installs
+brew install bash
 brew install node
 brew install thefuck 
 brew install nnn 

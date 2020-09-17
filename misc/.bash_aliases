@@ -11,7 +11,7 @@ alias bpedit='vim ~/.bash_profile'
 alias cd..='cd ..'
 alias chr='chmod 644'
 alias chx='chmod 755'
-alias ctags='`brew --prefix`/usr/local/bin/ctags'
+alias ctags='`brew --prefix`/bin/ctags'
 alias docker-build='docker-compose up --build'
 alias docker-clean:all="docker container stop $(docker container ls -a -q); docker system prune -a -f --volumes"
 alias docker-clean:layers='docker rmi $(docker images -f "dangling=true" -q)'
