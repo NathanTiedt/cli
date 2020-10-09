@@ -16,10 +16,11 @@ alias docker-build='docker-compose up --build'
 alias docker-clean:all="docker container stop $(docker container ls -a -q); docker system prune -a -f --volumes"
 alias docker-clean:layers='docker rmi $(docker images -f "dangling=true" -q)'
 alias docker-clean:volumes='docker volume rm $(docker volume ls -qf dangling=true)'
-alias docker-down='docker-compose down -v'
+alias docker-down='docker-compose down -v --remove-orphans'
 alias docker-up='docker-compose up'
 alias down=docker-down
 alias e='vim .'
+alias f='fuck'
 alias gb='cd `git rev-parse --show-toplevel`'
 alias hist='history | grep'
 alias ll='ls -lAGh'

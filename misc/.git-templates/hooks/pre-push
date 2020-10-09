@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+## dotnet package, so....
+if [ -f "./*.sln" ]; then
+  dotnet build
+fi
+
+## node package, so....
+if [ -f "./package.json" ]; then
+  npm run test
+fi
