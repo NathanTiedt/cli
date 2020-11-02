@@ -30,3 +30,6 @@ export TERM=xterm-256color
 eval $(thefuck --alias)
 set -o vi  # sets bash prompt to use vi movements after hitting `ESC`
 #source ~/.aws/temp_session
+if [ -f /usr/local/share/bash-completion/bash_completion ]; then
+  . /usr/local/share/bash-completion/bash_completion
+fi

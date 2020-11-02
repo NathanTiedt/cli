@@ -15,7 +15,7 @@ brew tap azure/functions
 echo "Starting Installations..."
 
 # General Installs
-brew install bash
+brew install bash # add /usr/local/bin/bash to /etc/shells
 brew install node
 brew install thefuck 
 brew install nnn 
@@ -38,6 +38,7 @@ brew link --overwrite python3
 brew install azure-cli
 brew install azure-functions-core-tools@3
 brew install awscli
+brew install bash-completion@2
 brew cask install dotnet-sdk
 
 npm install -g taskbook gulp-cli

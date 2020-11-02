@@ -3,6 +3,7 @@
 ## dotnet package, so....
 if [ -f "./*.sln" ]; then
   dotnet build
+  dotnet test
 fi
 
 ## node package, so....
