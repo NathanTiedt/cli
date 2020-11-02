@@ -24,7 +24,6 @@ appsDir=~/apps/
 ##
 function findDirs () {
   dir="$( find $appsDir -type d -maxdepth 1 -name "*$1*" | head -1 )"
-  echo $dir
   if [[ -z "$dir" ]]; then
     echo "No Projects Found"
   else
