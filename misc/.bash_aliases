@@ -18,6 +18,7 @@ alias docker-clean:layers='docker rmi $(docker images -f "dangling=true" -q)'
 alias docker-clean:volumes='docker volume rm $(docker volume ls -qf dangling=true)'
 alias docker-down='docker-compose down -v --remove-orphans'
 alias docker-up='docker-compose up'
+alias dotnet:test='dotnet test /p:CollectCoverage=true && reportgenerator "-reports:src/*/*.json" "-targetdir:coveragereport"'
 alias down=docker-down
 alias e='vim .'
 alias f='fuck'
