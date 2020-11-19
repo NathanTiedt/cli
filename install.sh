@@ -40,6 +40,7 @@ brew install azure-functions-core-tools@3
 brew install awscli
 brew install bash-completion@2
 brew cask install dotnet-sdk
+brew cask install dbeaver-community
 
 npm install -g taskbook gulp-cli
 
