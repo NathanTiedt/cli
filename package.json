@@ -11,6 +11,7 @@
     "cli": "./scripts/cli",
     "commit": "./scripts/commit",
     "compose": "./scripts/compose",
+    "cover": "./scripts/cover",
     "dev": "./scripts/dev",
     "ecr": "./scripts/ecr",
     "feature": "./src/bit/bit-feature",

@@ -7,3 +7,7 @@ fi
 if [ -f package.json ]; then
   npm run build
 fi
+
+if [ -f *.sln ]; then
+  dotnet build
+fi
