@@ -4,7 +4,6 @@ if [ -f package.json ]; then
   npm run test:coverage
 fi
 if [ -f *.sln ]; then
-  dotnet test 
-  # find files
-  # generate code coverage
+  dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:Exclude="[xunit*]\*" /p:CoverletOutput="./TestResults/"
+  reportgenerator "-reports:src/*/TestResults/coverage.cobertura.xml" "-targetdir:TestResults/html" -reporttypes:HTML;
 fi
