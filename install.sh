@@ -41,6 +41,7 @@ brew install awscli
 brew install bash-completion@2
 brew cask install dotnet-sdk
 brew cask install dbeaver-community
+brew cask install postman
 
 npm install -g taskbook gulp-cli
 
