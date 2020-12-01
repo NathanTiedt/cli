@@ -44,6 +44,7 @@ brew cask install dbeaver-community
 brew cask install postman
 
 npm install -g taskbook gulp-cli
+dotnet tool install -g dotnet-reportgenerator-globaltool
 
 echo "Finished Installations..."
 
