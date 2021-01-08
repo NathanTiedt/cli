@@ -38,6 +38,7 @@ brew link --overwrite python3
 brew install azure-cli
 brew install azure-functions-core-tools@3
 brew install awscli
+brew install android-platform-tools
 brew install bash-completion@2
 brew cask install dotnet-sdk
 brew cask install dbeaver-community
