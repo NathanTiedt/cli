@@ -11,6 +11,7 @@ brew tap aws/tap
 brew tap homebrew/cask
 brew tap homebrew/core
 brew tap azure/functions
+brew tap AdoptOpenJDK/openjdk
 
 echo "Starting Installations..."
 
@@ -40,9 +41,10 @@ brew install azure-functions-core-tools@3
 brew install awscli
 brew install android-platform-tools
 brew install bash-completion@2
-brew cask install dotnet-sdk
-brew cask install dbeaver-community
-brew cask install postman
+brew install --cask dotnet-sdk
+brew install --cask dbeaver-community
+brew install --cask postman
+brew install --cask adoptopenjdk11
 
 npm install -g taskbook gulp-cli
 dotnet tool install -g dotnet-reportgenerator-globaltool
