@@ -39,6 +39,7 @@ brew install azure-cli
 brew install azure-functions-core-tools@3
 brew install awscli
 brew install bash-completion@2
+brew install the_silver_searcher
 brew cask install dotnet-sdk
 brew cask install dbeaver-community
 brew cask install postman
