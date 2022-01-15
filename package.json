@@ -50,7 +50,7 @@
     "gulp": "^4.0.2",
     "gulp-git": "^2.10.0",
     "gulp-run": "^1.7.1",
-    "shelljs": "^0.8.2",
+    "shelljs": "^0.8.5",
     "superagent": "^3.8.3"
   }
 }
